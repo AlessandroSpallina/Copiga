@@ -1,0 +1,2 @@
+# Copiga
+Print Shop Optimizer
