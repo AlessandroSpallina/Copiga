@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('dash.dashboard');
 });
+
+Route::get('/dash', function () {
+    return view('dash.dashboard');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
