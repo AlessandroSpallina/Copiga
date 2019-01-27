@@ -13,7 +13,8 @@ import java.util.logging.Logger;
  *
  * @author manlio
  */
-public class Connector {
+public class ExConnector {
+    
     private static String name = "com.mysql.jdbc.Driver";
     private static String host = "jdbc:mysql://167.99.188.179:3306/copiga";
     private static String husr = "root";
@@ -28,7 +29,7 @@ public class Connector {
     public String getPw() {
         return pw;
     }
-    
+   
     public void Connect(){
         try {
             // Trying to connect
@@ -40,7 +41,8 @@ public class Connector {
         }
         // catching exeptions
         catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
-            Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 }
