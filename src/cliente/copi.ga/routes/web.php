@@ -11,10 +11,23 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');*/
+
+
+Route::view('/', 'welcome');
+Auth::routes();
+
+Route::get('/login/printshop', 'Auth\LoginController@showPrintshopLoginForm')->name('login/printshop');
+Route::get('/register/printshop', 'Auth\RegisterController@showPrintshopRegisterForm')->name('register/printshop');
+
+Route::post('/login/printshop', 'Auth\LoginController@printshopLogin');
+Route::post('/register/printshop', 'Auth\RegisterController@createPrintshop');
+
+Route::view('/home', 'home')->middleware('auth');
+Route::view('/printshop', 'printshop')->middleware('auth:printshop');

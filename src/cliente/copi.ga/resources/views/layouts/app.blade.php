@@ -40,15 +40,42 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
+
+                            @isset($url)
+                              <li class="nav-item">
+                                  <a class="nav-link" href="{{ route('login/printshop') }}">{{ __('Login') }}</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="{{ route('register/printshop') }}">{{ __('Register') }}</a>
+                              </li>
+                            @else
+                              <li class="nav-item">
+                                  <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                              </li>
+                            @endisset
                         @else
+                            @isset($url)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('printshop') }}">{{ __('Statistics') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('printshop') }}">{{ __('PriceList') }}</a>
+                            </li>
+                            @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Print') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('PrintCron') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Account') }}</a>
+                            </li>
+                            @endisset
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
