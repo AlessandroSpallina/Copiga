@@ -17,6 +17,9 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        if ($guard == "printshop" && Auth::guard($guard)->check()) {
+              return redirect('/printshop');
+        }
         if (Auth::guard($guard)->check()) {
             return redirect('/home');
         }

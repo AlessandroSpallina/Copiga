@@ -41,9 +41,14 @@ return [
             'provider' => 'users',
         ],
 
+        'printshop' => [
+            'driver' => 'session',
+            'provider' => 'printshops',
+        ],
+
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
+            'driver' => 'jwt',
+            'provider' => 'printshops',
         ],
     ],
 
@@ -68,6 +73,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+
+        'printshops' => [
+            'driver' => 'eloquent',
+            'model' => App\Printshop::class,
         ],
 
         // 'users' => [

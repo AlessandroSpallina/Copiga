@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Printshop;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -37,6 +40,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->middleware('guest:printshop');
     }
 
     /**
@@ -65,7 +69,29 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => Hash::make($data['password']),
         ]);
     }
+
+    protected function createPrintshop(Request $request)
+    {
+        //$this->validator($request->all())->validate();
+        $printshop = Printshop::create([
+            'name' => $request['printshopname'],
+            'email' => $request['email'],
+            'address' => $request['address'],
+            'vatnumber' => $request['vatnumber'],
+            'phone' => $request['phone'],
+            'password' => Hash::make($request['password']),
+        ]);
+        return redirect()->intended('login/printshop');
+    }
+
+
+
+    public function showPrintshopRegisterForm()
+    {
+        return view('auth.register', ['url' => 'printshop']);
+    }
+
 }
