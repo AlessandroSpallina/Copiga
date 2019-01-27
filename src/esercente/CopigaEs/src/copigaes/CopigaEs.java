@@ -5,23 +5,21 @@
  */
 package copigaes;
 
-import com.mysql.jdbc.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import copigaes.Connector;
+import copigaes.Connection;
 
 /**
  * // id: root, password: manlioMANLIO
  * // jdbc:sqlserver://167.99.188.179:3306/copiga"
  * @author manlio
  */
-public class CopigaEs {
+public class CopigaEs { 
+    /* ex main
     public static void main(String[] args) {
-        Connector connector = new Connector();
+        ExConnector connector = new ExConnector();
         connector.Connect();
+    }*/
+    public static void main(String[] args){
+        Connection conn = null;
+        conn.connect();
     }
-    
 }
