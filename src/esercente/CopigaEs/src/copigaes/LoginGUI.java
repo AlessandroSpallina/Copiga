@@ -145,7 +145,7 @@ public class LoginGUI extends javax.swing.JFrame {
         RegisterURL regurl = new RegisterURL();
         URI uri;
         try {
-            uri = new URI("https://copi.ga/login/printshop");
+            uri = new URI("https://copi.ga/register/printshop");
             regurl.openWebPage(uri);
         } catch (URISyntaxException ex) {
             Logger.getLogger(LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
