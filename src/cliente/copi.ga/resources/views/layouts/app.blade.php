@@ -43,38 +43,38 @@
 
                             @isset($url)
                               <li class="nav-item">
-                                  <a class="nav-link" href="{{ route('login/printshop') }}">{{ __('Login') }}</a>
+                                  <a class="nav-link" href="{{ route('login/printshop') }}">Login</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" href="{{ route('register/printshop') }}">{{ __('Register') }}</a>
+                                  <a class="nav-link" href="{{ route('register/printshop') }}">Legistra</a>
                               </li>
                             @else
                               <li class="nav-item">
-                                  <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                  <a class="nav-link" href="{{ route('login') }}">Login</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                  <a class="nav-link" href="{{ route('register') }}">Registra</a>
                               </li>
                             @endisset
                         @else
-                            @isset($url)
+                            @if(Route::current()->getName() == 'printshop')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('printshop') }}">{{ __('Statistics') }}</a>
+                                <a class="nav-link" href="{{ route('printshop') }}">Statistiche</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('printshop') }}">{{ __('PriceList') }}</a>
+                                <a class="nav-link" href="{{ route('printshop') }}">Carica Credito</a>
                             </li>
                             @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Print') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">Invia Stampa</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('PrintCron') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">Riepilogo Stampe</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Account') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">Account</a>
                             </li>
-                            @endisset
+                            @endif
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -82,6 +82,15 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('printshop') }}">
+                                      Tipi di File Accettati
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('printshop') }}">
+                                      Tariffario Carta
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('printshop') }}">
+                                      Tariffario Rilegatura
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
