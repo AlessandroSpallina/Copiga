@@ -5,13 +5,10 @@
  */
 package copigaes;
 
-import com.mysql.jdbc.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.io.IOException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import copigaes.Connector;
 
 /**
  * // id: root, password: manlioMANLIO
@@ -19,9 +16,17 @@ import copigaes.Connector;
  * @author manlio
  */
 public class CopigaEs {
-    public static void main(String[] args) {
-        Connector connector = new Connector();
-        connector.Connect();
-    }
+    /*public static void main(String[] args) throws IOException{
     
+    String email, passw;
+    Scanner s = new Scanner(System.in);
+    System.out.println("Insert email: ");
+    email = s.nextLine();
+    
+    System.out.println("Insert password: ");
+    passw = s.nextLine();
+    
+    Login login = null;
+    login.Connect(email, passw);
+    }*/
 }
