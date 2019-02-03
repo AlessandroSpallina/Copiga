@@ -13,12 +13,18 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
+
+                background-color: #0099cc;
+                #color: #636b6f;
+
                 font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
+                font-weight: 900;
+                height: 500vh;
                 margin: 0;
+            }
+
+            sfondo {
+              background-image: url("/img/scrivania.jpg");
             }
 
             .full-height {
@@ -50,7 +56,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #ffffff;
                 padding: 0 25px;
                 font-size: 12px;
                 font-weight: 600;
@@ -72,7 +78,8 @@
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('register') }}">Registra</a>
+                        <a href="{{ route('joinus') }}">PortaleCopisteria</a>
                     @endauth
                 </div>
             @endif
