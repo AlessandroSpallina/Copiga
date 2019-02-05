@@ -83,13 +83,10 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('printshop') }}">
-                                      Tipi di File Accettati
+                                      Tipi di File/Carta/Rilegatura
                                     </a>
                                     <a class="dropdown-item" href="{{ route('printshop') }}">
-                                      Tariffario Carta
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('printshop') }}">
-                                      Tariffario Rilegatura
+                                      Tariffario e Specifiche di Stampa
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

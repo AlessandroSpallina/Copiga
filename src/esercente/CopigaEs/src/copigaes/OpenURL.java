@@ -17,34 +17,29 @@ import java.util.logging.Logger;
  *
  * @author manlio
  */
-public class RegisterURL {
-    
-    public void RegisterURL(){
-        System.out.println("going to register url...");
-    }
-    
+public class OpenURL {
     //openWebpage
-    public boolean openWebPage(URI uri) {
+    OpenURL(URI uri) {
         Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
         if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
         try {
             desktop.browse(uri);
-            return true;
+            //return true;
         } 
         catch (Exception e) {
             e.printStackTrace();
             }
         }
-        return false;
     }
 
+    /*
     public boolean openWebpage(URL url) {
         try {;
             return openWebPage(url.toURI());
         } catch (URISyntaxException ex) {
-            Logger.getLogger(RegisterURL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OpenURL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-    }
+    } */
     
 }
