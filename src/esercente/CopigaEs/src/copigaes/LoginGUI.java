@@ -142,11 +142,10 @@ public class LoginGUI extends javax.swing.JFrame {
     
     // REGISTER BUTTON
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        RegisterURL regurl = new RegisterURL();
         URI uri;
         try {
             uri = new URI("https://copi.ga/register/printshop");
-            regurl.openWebPage(uri);
+            OpenURL regurl = new OpenURL(uri);
         } catch (URISyntaxException ex) {
             Logger.getLogger(LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
