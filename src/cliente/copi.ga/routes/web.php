@@ -35,4 +35,4 @@ Route::post('/register/printshop', 'Auth\RegisterController@createPrintshop');
 Route::view('/home', 'home')->middleware('auth');
 Route::view('/printshop', 'printshop')->middleware('auth:printshop')->name('printshop');
 
-Route::resource('files', 'FileController');
+Route::resource('files', 'FileController')->middleware('auth:printshop');

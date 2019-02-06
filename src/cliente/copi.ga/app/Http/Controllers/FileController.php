@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 class FileController extends Controller
 {
+    private function extStringToArray($extstr)
+    {
+        $tmp_array = array_filter(explode(';', $extstr));
+        return($tmp_array);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,6 @@ class FileController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -23,8 +29,13 @@ class FileController extends Controller
      */
     public function create()
     {
-        //
+        return view('files.create');
     }
+
+
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -34,8 +45,18 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+        'categoria_file' => 'required',
+        'estensioni_file' => 'required'
+      ]);
+        if(count($this->extStringToArray($request->get('estensioni_file')))) {
+          // sono presenti estensioni valide
+          
+
+        }
     }
+
+
 
     /**
      * Display the specified resource.
@@ -45,7 +66,6 @@ class FileController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**

@@ -10,6 +10,7 @@ class HomeController extends Controller
      * Create a new controller instance.
      *
      * @return void
+     * @findme questo si può levare perchè in web.php gli associo già il middlewares
      */
     public function __construct()
     {

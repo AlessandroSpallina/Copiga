@@ -40,7 +40,6 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-
                             @isset($url)
                               <li class="nav-item">
                                   <a class="nav-link" href="{{ route('login/printshop') }}">Login</a>

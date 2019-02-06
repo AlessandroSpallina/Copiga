@@ -18,6 +18,9 @@ class CreateFilesTable extends Migration
             $table->timestamps();
             $table->string('categoria');
             $table->string('estensione');
+            $table->unsignedInteger('printshop_id');
+            $table->foreign('printshop_id')->references('id')->on('printshops');
+
         });
     }
 
