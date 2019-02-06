@@ -24,12 +24,12 @@ public class Login {
         System.out.println("Starting connection to copi.ga...");
     }
     
+    
+    // connection
     private static HttpURLConnection con;
+    
+    // token
     private String token;
-
-    public String getToken() {
-        return token;
-    }
     
     public void connect(String email, String passw) throws MalformedURLException, IOException{
         
@@ -122,7 +122,7 @@ public class Login {
     
     
     public void accepted(){
-        String url = "https://copi.ga/api/v1/accepted";
+        String url = "https://copi.ga/api/v1/me";
         
         String urlParameters = "token="+token;
         System.out.println(urlParameters);
@@ -137,6 +137,10 @@ public class Login {
             con.setRequestProperty("Accept", "application/json");
             con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             
+            try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+                wr.write(postData);
+            }
+            
             StringBuilder content;
             try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
                 String line;
@@ -146,6 +150,8 @@ public class Login {
                     content.append(System.lineSeparator());
                 }
             }
+            
+            
             
             System.out.println(content);
             

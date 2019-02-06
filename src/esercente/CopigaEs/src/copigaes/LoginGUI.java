@@ -124,12 +124,11 @@ public class LoginGUI extends javax.swing.JFrame {
         try{
             login.connect(email, passw);
             int code = login.getHttpStatus();
-            String tkn = login.getToken(); // passo il token alla next Jframe
             if(code == 401){
                 JOptionPane.showMessageDialog(null, "Email o password errate");
             }
             else{
-                new EsercenteGUI(tkn).setVisible(true);
+                new EsercenteGUI(login).setVisible(true);
                 this.setVisible(false);
             }
             // TODO: aggiungere i vari codici HTTP STATUS

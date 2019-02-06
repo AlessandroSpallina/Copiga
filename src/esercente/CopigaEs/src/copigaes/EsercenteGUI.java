@@ -19,10 +19,10 @@ public class EsercenteGUI extends javax.swing.JFrame {
     /**
      * Creates new form EsercenteGUI
      */
-    String token;
-    public EsercenteGUI(String tkn) {
+    Login lgin;
+    public EsercenteGUI(Login login) {
         initComponents();
-        token = tkn;
+        lgin = login;
     }
 
     /**
@@ -235,7 +235,7 @@ public class EsercenteGUI extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // prova azione accepted
-        System.out.println(token);
+        lgin.accepted();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
 
