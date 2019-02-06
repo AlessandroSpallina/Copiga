@@ -48,12 +48,12 @@ public class LoginGUI extends javax.swing.JFrame {
 
         jLabel2.setText("password");
 
-        jTextField1.setText("example@mail.com");
+        jTextField1.setText("mario@m.m");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/copigaes/images/copiga_logo.png"))); // NOI18N
         jLabel3.setText("jLabel3");
 
-        jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.setText("mmmmmmmm");
 
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -122,13 +122,13 @@ public class LoginGUI extends javax.swing.JFrame {
         String passw = jPasswordField1.getText();
         Login login = new Login();
         try{
-            login.Connect(email, passw);
+            login.connect(email, passw);
             int code = login.getHttpStatus();
             if(code == 401){
                 JOptionPane.showMessageDialog(null, "Email o password errate");
             }
             else{
-                new EsercenteGUI().setVisible(true);
+                new EsercenteGUI(login).setVisible(true);
                 this.setVisible(false);
             }
             // TODO: aggiungere i vari codici HTTP STATUS
