@@ -27,9 +27,10 @@ public class Login {
     private static HttpURLConnection con;
     private String token;
 
-    /*public String getToken() {
+    public String getToken() {
         return token;
-    }*/
+    }
+    
     public void connect(String email, String passw) throws MalformedURLException, IOException{
         
         String url = "https://copi.ga/api/v1/login";
@@ -64,7 +65,7 @@ public class Login {
             
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(content.toString());
-            String token = (String) json.get("access_token");
+            token = (String) json.get("access_token");
             System.out.println(token);
             
         } catch(Exception e){
