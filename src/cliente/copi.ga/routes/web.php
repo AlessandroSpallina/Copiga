@@ -38,3 +38,5 @@ Route::view('/home', 'home')->middleware('auth');
 // ROUTE COPISTERIA
 Route::view('/printshop', 'printshop')->middleware('auth:printshop')->name('printshop');
 Route::resource('/printshop/files', 'FileController')->middleware('auth:printshop');
+Route::resource('/printshop/papers', 'PaperController')->middleware('auth:printshop');
+Route::resource('/printshop/bookbindings', 'BookbindingController')->middleware('auth:printshop');

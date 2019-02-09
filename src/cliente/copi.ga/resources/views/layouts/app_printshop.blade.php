@@ -64,10 +64,10 @@
                                     <a class="dropdown-item" href="{{ route('files.index') }}">
                                       Tipi di File
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('printshop') }}">
+                                    <a class="dropdown-item" href="{{ route('papers.index') }}">
                                       Tipi di Carta
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('printshop') }}">
+                                    <a class="dropdown-item" href="{{ route('bookbindings.index') }}">
                                       Tipi di Rilegatura
                                     </a>
                                     <div class="dropdown-divider"></div>

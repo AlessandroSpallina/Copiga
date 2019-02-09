@@ -37,11 +37,6 @@ class FileController extends Controller
         return view('files.create');
     }
 
-
-
-
-
-
     /**
      * Store a newly created resource in storage.
      *
