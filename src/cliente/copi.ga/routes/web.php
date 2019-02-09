@@ -20,19 +20,21 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');*/
 
 
+// ROUTE FRONT PAGE
 Route::view('/', 'welcome');
 Route::view('/joinus', 'welcome_joinus')->name('joinus');
 
 Auth::routes();
 
+// ROUTE AUTH
 Route::get('/login/printshop', 'Auth\LoginController@showPrintshopLoginForm')->name('login/printshop');
 Route::get('/register/printshop', 'Auth\RegisterController@showPrintshopRegisterForm')->name('register/printshop');
-
 Route::post('/login/printshop', 'Auth\LoginController@printshopLogin');
 Route::post('/register/printshop', 'Auth\RegisterController@createPrintshop');
 
-
+// ROUTE CLIENTE @ findme eliminare 'home' e fare tutte le route cliente /pannello/opzione/qualcosa
 Route::view('/home', 'home')->middleware('auth');
-Route::view('/printshop', 'printshop')->middleware('auth:printshop')->name('printshop');
 
-Route::resource('files', 'FileController')->middleware('auth:printshop');
+// ROUTE COPISTERIA
+Route::view('/printshop', 'printshop')->middleware('auth:printshop')->name('printshop');
+Route::resource('/printshop/files', 'FileController')->middleware('auth:printshop');

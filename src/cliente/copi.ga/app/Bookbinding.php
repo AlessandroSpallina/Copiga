@@ -4,11 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class File extends Model
+class Bookbinding extends Model
 {
     protected $fillable = [
-      'categoria',
-      'estensione',
-      'selezionato',
+    'tipo',
+    'estensione',
+    'prezzo',
+    'selezionato'
     ];
 }

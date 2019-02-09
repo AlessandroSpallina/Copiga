@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\File;
+use Illuminate\Support\Facades\Auth;
 
 class FileController extends Controller
 {
@@ -20,6 +22,9 @@ class FileController extends Controller
      */
     public function index()
     {
+        $files = Auth::user()->files()->get();
+
+        return view('files.index', compact('files'));
     }
 
     /**
@@ -48,12 +53,15 @@ class FileController extends Controller
         $request->validate([
         'categoria_file' => 'required',
         'estensioni_file' => 'required'
-      ]);
-        if(count($this->extStringToArray($request->get('estensioni_file')))) {
-          // sono presenti estensioni valide
-          
+        ]);
 
-        }
+        $count = count($this->extStringToArray($request->get('estensioni_file')));
+        $file = new File();
+        $file->categoria = $request->get('categoria_file');
+        $file->estensione = $request->get('estensioni_file');
+        Auth::user()->files()->save($file);
+
+        return redirect('/printshop/files')->with('success', 'Creata la categoria "'.$request->get('categoria_file').'" con '.$count.' estensioni.');
     }
 
 
@@ -76,7 +84,9 @@ class FileController extends Controller
      */
     public function edit($id)
     {
-        //
+        $file = File::find($id);
+
+        return view('files.edit', compact('file'));
     }
 
     /**
@@ -88,7 +98,17 @@ class FileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+        'categoria_file' => 'required',
+        'estensioni_file' => 'required'
+        ]);
+
+        $file = File::find($id);
+        $file->categoria = $request->get('categoria_file');
+        $file->estensione = $request->get('estensioni_file');
+        $file->save();
+        $count = count($this->extStringToArray($request->get('estensioni_file')));
+        return redirect('/printshop/files')->with('success', 'Aggiornata la categoria "'.$request->get('categoria_file').'" con '.$count.' estensioni.');
     }
 
     /**
@@ -99,6 +119,9 @@ class FileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $file = File::find($id);
+        $file->delete();
+
+        return redirect('/printshop/files')->with('success', 'Categoria eliminata con successo.');
     }
 }

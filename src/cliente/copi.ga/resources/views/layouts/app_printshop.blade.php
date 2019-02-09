@@ -23,7 +23,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/printshop') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -40,40 +40,19 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @isset($url)
                               <li class="nav-item">
                                   <a class="nav-link" href="{{ route('login/printshop') }}">Login</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" href="{{ route('register/printshop') }}">Legistra</a>
+                                  <a class="nav-link" href="{{ route('register/printshop') }}">Registra</a>
                               </li>
-                            @else
-                              <li class="nav-item">
-                                  <a class="nav-link" href="{{ route('login') }}">Login</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" href="{{ route('register') }}">Registra</a>
-                              </li>
-                            @endisset
                         @else
-                            @if(Route::current()->getName() == 'printshop')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('printshop') }}">Statistiche</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('printshop') }}">Carica Credito</a>
                             </li>
-                            @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">Invia Stampa</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">Riepilogo Stampe</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">Account</a>
-                            </li>
-                            @endif
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -81,12 +60,21 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('printshop') }}">
-                                      Tipi di File/Carta/Rilegatura
+
+                                    <a class="dropdown-item" href="{{ route('files.index') }}">
+                                      Tipi di File
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('printshop') }}">
+                                      Tipi di Carta
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('printshop') }}">
+                                      Tipi di Rilegatura
+                                    </a>
+                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('printshop') }}">
                                       Tariffario e Specifiche di Stampa
                                     </a>
+                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

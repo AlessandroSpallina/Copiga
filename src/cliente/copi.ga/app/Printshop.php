@@ -41,4 +41,20 @@ class Printshop extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+
+    public function files()
+    {
+        return $this->hasMany('App\File');
+    }
+
+    public function papers()
+    {
+        return $this->hasMany('App\Paper');
+    }
+
+    public function bookbindings()
+    {
+        return $this->hasMany('App\Bookbinding');
+    }
 }

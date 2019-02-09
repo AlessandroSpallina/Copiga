@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFilesTable extends Migration
+class CreatePapersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('papers', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('categoria')->unique();
-            $table->string('estensione');
+            $table->string('formato')->unique();
+            $table->string('descrizione')->nullable();
+            $table->float('prezzoBN')->nullable();
+            $table->float('prezzoC')->nullable();
             $table->boolean('selezionato')->default(false);
             $table->unsignedInteger('printshop_id');
             $table->foreign('printshop_id')->references('id')->on('printshops');
-
         });
     }
 
@@ -32,6 +33,6 @@ class CreateFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('papers');
     }
 }
