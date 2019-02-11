@@ -40,3 +40,5 @@ Route::view('/printshop', 'printshop')->middleware('auth:printshop')->name('prin
 Route::resource('/printshop/files', 'FileController')->middleware('auth:printshop');
 Route::resource('/printshop/papers', 'PaperController')->middleware('auth:printshop');
 Route::resource('/printshop/bookbindings', 'BookbindingController')->middleware('auth:printshop');
+Route::get('/printshop/printspecs', 'PrintspecsController@showPrintspecs')->middleware('auth:printshop')->name('printspecs');
+Route::post('/printshop/printspecs', 'PrintspecsController@createPrintspecs')->middleware('auth:printshop');

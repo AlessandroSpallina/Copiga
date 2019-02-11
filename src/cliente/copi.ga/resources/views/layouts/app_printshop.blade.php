@@ -71,7 +71,7 @@
                                       Tipi di Rilegatura
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{{ route('printshop') }}">
+                                    <a class="dropdown-item" href="{{ route('printspecs') }}">
                                       Tariffario e Specifiche di Stampa
                                     </a>
                                     <div class="dropdown-divider"></div>
