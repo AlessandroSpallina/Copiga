@@ -16,13 +16,14 @@ class CreatePapersTable extends Migration
         Schema::create('papers', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('formato')->unique();
+            $table->string('formato');
             $table->string('descrizione')->nullable();
             $table->float('prezzoBN')->nullable();
             $table->float('prezzoC')->nullable();
             $table->boolean('selezionato')->default(false);
             $table->unsignedInteger('printshop_id');
             $table->foreign('printshop_id')->references('id')->on('printshops');
+            $table->unique(array('printshop_id', 'formato'));
         });
     }
 
