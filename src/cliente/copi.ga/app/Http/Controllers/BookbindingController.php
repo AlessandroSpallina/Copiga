@@ -93,7 +93,7 @@ class BookbindingController extends Controller
         $bookbinding->descrizione = $request->get('descrizione_rilegatura');
         $bookbinding->save();
 
-        return redirect('/printshop/bookbindings')->with('success', 'Aggiornata la tipologia di rilegatura "'.$request->get('formato_carta').'" con successo.');
+        return redirect('/printshop/bookbindings')->with('success', 'Aggiornata la tipologia di rilegatura "'.$request->get('tipo_rilegatura').'" con successo.');
     }
 
     /**
