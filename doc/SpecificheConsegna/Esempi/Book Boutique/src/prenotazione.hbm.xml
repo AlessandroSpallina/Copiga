@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">  
+ 
+<hibernate-mapping>
+   <class name="Prenotazione" table="`Prenotazione`">
+      <id name="id" column="`id`">
+         <generator class="increment"/>
+      </id>
+      <property name="quantita" column="`quantita`"/>
+      <property name="copieConsegnate" column="`copieConsegnate`"/>
+      <property name="ordinato" column="`ordinato`"/>
+      
+      <many-to-one name="cliente" column="`clienteId`" not-null="true" cascade="all" fetch="join"/>
+      <many-to-one name="libro" column="`libroId`" not-null="true" cascade="all" fetch="join"/>
+   </class>
+</hibernate-mapping>

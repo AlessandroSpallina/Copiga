@@ -1,0 +1,11 @@
+//////////////////////////////////////////////////////////
+La gestione delle eccezioni e del logging è incoerente: 
+- talvolta, viene stampata la trace 
+- altre volte, messaggi sullo schermo (testuale) 
+- altre volte viene usato il Logger (grafico)  
+
+//////////////////////////////////////////////////////////
+La gestione del ricaricamente dei dati non è completa. 
+In particolare, se vengono ricaricati i dati, questi sono 
+a disposizione per le varie operazioni, ma non visibili nelle tabelle, 
+che non so come aggiornare. 

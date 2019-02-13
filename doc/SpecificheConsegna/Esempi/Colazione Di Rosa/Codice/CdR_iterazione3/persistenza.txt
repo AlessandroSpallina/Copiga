@@ -1,0 +1,12 @@
+NOTE SULLA PERSISTENZA 
+
+Nella versione iniziale, da quanto capisco, la persistenza era gestita in questo modo: 
+- all'avvio, tutti i dati vengono caricati dal DB in memoria 
+- tutte le modifiche vengono effettuate, separatamente, sia in memoria che nel DB 
+
+Tuttavia, nella versione attuale viene adottata la seguente strategia diversificata: 
+- dati normalmente in memoria
+- dati sui clienti solo nel DB (solo cliente corrente in memoria) 
+  è abilitata però l'operazione che accede e visualizza tutti i clienti (ma non li tiene in memoria) 
+- dati sugli ordini solo nel DB (solo ordine corrente in memoria) 
+  è abilitata però l'operazione che accede e visualizza tutti gli ordini (ma non li tiene in memoria) 

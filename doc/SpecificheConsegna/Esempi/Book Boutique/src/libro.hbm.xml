@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">  
+ 
+<hibernate-mapping>
+   <class name="Libro" table="`Libro`">
+      <id name="id" column="`id`">
+         <generator class="increment"/>
+      </id>
+      <property name="ISBN" column="`ISBN`"/>
+      <property name="titolo" column="`titolo`"/>
+      <property name="autore" column="`autore`"/>
+      <property name="prezzo" column="`prezzo`"/>
+      <property name="copieResidue" column="`copieResidue`"/>
+      
+		<many-to-one name="editore" column="`editoreId`" not-null="true"/>
+   </class>
+</hibernate-mapping>

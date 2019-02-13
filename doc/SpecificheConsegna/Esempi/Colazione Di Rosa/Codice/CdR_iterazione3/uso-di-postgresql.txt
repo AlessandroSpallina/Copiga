@@ -1,0 +1,35 @@
+-------------------------------------- 
+INSTALLAZIONE 
+
+Installato PostgreSQL 8.1.0-2 
+Installato come servizio, tutti valori di default
+Password per utente postgres di XP: PASSWORD 
+Password per utente postgres di PostgreSQL: PASSWORD
+
+-------------------------------------- 
+CREAZIONE DB 
+
+Se il servizio non è avviato, avviarlo. 
+
+Nel seguito, CDR_HOME indica la cartella in cui è installato il progetto, 
+ad esempio C:\Usr\eclipse\colazionedirosa\CdR_iterazione3
+
+Lanciare il command prompt 
+
+Eventualmente cancella il database: 
+dropdb -U postgres CdR 
+
+Creare il database: 
+createdb -U postgres CdR 
+
+Crea lo schema della base di dati: 
+psql -U postgres -d CdR -f CDR_HOME\SQL\create-schema.sql 
+
+Inserisce alcuni dati: 
+psql -U postgres -d CdR -f CDR_HOME\SQL\insert-sample-data.sql 
+
+-------------------------------------- 
+USO DB 
+
+Lancio dell'applicazione da eclipse
+MainAppSwing oppure MainAppText dal package it.aps.cdr  
