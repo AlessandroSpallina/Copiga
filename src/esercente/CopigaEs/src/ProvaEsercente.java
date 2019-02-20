@@ -62,7 +62,7 @@ public class ProvaEsercente {
 	
         private static final String[] COLUMN_NAMES = new String[] {"File", "Cliente", "Visualizza File", "Accetta File", "Notifica Ritiro"};
 	
-        private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {Integer.class, String.class, JButton.class,  JButton.class,  JButton.class};
+        private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class, String.class, JButton.class,  JButton.class,  JButton.class};
 	
         
 	@Override public int getColumnCount() {
@@ -97,32 +97,31 @@ public class ProvaEsercente {
         };
         ActionListener alaccetta = new ActionListener(){
             public void actionPerformed(ActionEvent arg0) {
-                JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(visualizzaFileButton), 
-                                    "Bottone per notificare l'accettazione del file al cliente");            }
+                JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(accettaFileButton), 
+                                    "Bottone per notificare l'accettazione del file al cliente");
+            }
         };
         ActionListener alnotifica = new ActionListener(){
             public void actionPerformed(ActionEvent arg0) {
-                JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(visualizzaFileButton), 
-                                    "Bottone per notificare il ritiro del materiale al cliente");            }
+                JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(notificaRitiroButton), 
+                                    "Bottone per notificare il ritiro del materiale al cliente");
+            }
         };
-        
-        
         
         
 	@Override public Object getValueAt(final int rowIndex, final int columnIndex) {
             
             // a seconda dell'indice della colonna fa qualcosa
-            visualizzaFileButton.addActionListener(alvisualizza);
-            accettaFileButton.addActionListener(alaccetta);
-            notificaRitiroButton.addActionListener(alnotifica);
-            
             switch (columnIndex) {
 		case 0: return "File numero "+rowIndex;
 		case 1: return "Text for "+rowIndex;
 		//case 2: // fall through
-		case 2: return visualizzaFileButton;
-                case 3: return accettaFileButton;
-                case 4: return notificaRitiroButton;
+		case 2: visualizzaFileButton.addActionListener(alvisualizza);
+                        return visualizzaFileButton;
+                case 3: accettaFileButton.addActionListener(alaccetta);
+                        return accettaFileButton;
+                case 4: notificaRitiroButton.addActionListener(alnotifica);
+                        return notificaRitiroButton;
 		default: return "Error";
             }
 	}	
@@ -151,7 +150,7 @@ public class ProvaEsercente {
         
         public void mouseClicked(MouseEvent e) {
             int column = table.getColumnModel().getColumnIndexAtX(e.getX());
-            int row    = e.getY()/table.getRowHeight(); 
+            int row = e.getY()/table.getRowHeight(); 
             if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {
                 Object value = table.getValueAt(row, column);
                 if (value instanceof JButton) {
