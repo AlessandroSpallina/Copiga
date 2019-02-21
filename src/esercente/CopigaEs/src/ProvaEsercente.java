@@ -110,6 +110,8 @@ public class ProvaEsercente {
         
         
 	@Override public Object getValueAt(final int rowIndex, final int columnIndex) {
+            
+            // TODO: implementare un metodo che generalizzi la creazione di questi bottoni
             visualizzaFileButton = new JButton(COLUMN_NAMES[2]);
             visualizzaFileButton.addActionListener(alvisualizza);
             
