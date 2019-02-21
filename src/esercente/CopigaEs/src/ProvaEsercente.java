@@ -84,9 +84,9 @@ public class ProvaEsercente {
         	return COLUMN_TYPES[columnIndex];
 	}
         
-        final JButton visualizzaFileButton = new JButton(COLUMN_NAMES[2]);
-        final JButton accettaFileButton = new JButton(COLUMN_NAMES[3]);
-        final JButton notificaRitiroButton = new JButton(COLUMN_NAMES[4]);
+        JButton visualizzaFileButton;
+        JButton accettaFileButton;
+        JButton notificaRitiroButton;
         
         ActionListener alvisualizza = new ActionListener(){
             public void actionPerformed(ActionEvent arg0) {
@@ -110,18 +110,23 @@ public class ProvaEsercente {
         
         
 	@Override public Object getValueAt(final int rowIndex, final int columnIndex) {
+            visualizzaFileButton = new JButton(COLUMN_NAMES[2]);
+            visualizzaFileButton.addActionListener(alvisualizza);
+            
+            accettaFileButton = new JButton(COLUMN_NAMES[3]);
+            accettaFileButton.addActionListener(alaccetta);
+            
+            notificaRitiroButton = new JButton(COLUMN_NAMES[4]);
+            notificaRitiroButton.addActionListener(alnotifica);
             
             // a seconda dell'indice della colonna fa qualcosa
             switch (columnIndex) {
 		case 0: return "File numero "+rowIndex;
 		case 1: return "Text for "+rowIndex;
 		//case 2: // fall through
-		case 2: visualizzaFileButton.addActionListener(alvisualizza);
-                        return visualizzaFileButton;
-                case 3: accettaFileButton.addActionListener(alaccetta);
-                        return accettaFileButton;
-                case 4: notificaRitiroButton.addActionListener(alnotifica);
-                        return notificaRitiroButton;
+		case 2: return visualizzaFileButton;
+                case 3: return accettaFileButton;
+                case 4: return notificaRitiroButton;
 		default: return "Error";
             }
 	}	
