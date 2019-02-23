@@ -1,5 +1,8 @@
 <?php
 
+
+// !!!! NOTA BENE: Questo è il controller delle API Autenticate !!!!
+
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;

@@ -11,4 +11,9 @@ class File extends Model
       'estensione',
       'selezionato',
     ];
+
+    public function printshop()
+    {
+        return $this->belongsTo('App\Printshop');
+    }
 }

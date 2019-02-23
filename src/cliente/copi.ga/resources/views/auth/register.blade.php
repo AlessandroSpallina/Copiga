@@ -17,8 +17,6 @@
                         @endisset
                             @csrf
 
-
-
                         @isset($url)
                         <div class="form-group row">
                             <label for="printshopname" class="col-md-4 col-form-label text-md-right">{{ __('PrintshopName') }}</label>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBookbindingsTable extends Migration
+class CreateCreditsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,17 @@ class CreateBookbindingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bookbindings', function (Blueprint $table) {
+        Schema::create('credits', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('tipo');
-            $table->string('descrizione')->nullable();
-            $table->float('prezzo')->nullable();
-            $table->boolean('selezionato')->default(false);
+            $table->float('importo');
             $table->unsignedInteger('printshop_id');
+            $table->unsignedInteger('user_id');
+
+            $table->unique(array('printshop_id', 'user_id'));
+
             $table->foreign('printshop_id')->references('id')->on('printshops');
-            $table->unique(array('printshop_id', 'tipo'));
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -33,6 +34,6 @@ class CreateBookbindingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bookbindings');
+        Schema::dropIfExists('credits');
     }
 }

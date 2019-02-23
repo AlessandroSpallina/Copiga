@@ -12,4 +12,9 @@ class Bookbinding extends Model
     'prezzo',
     'selezionato'
     ];
+
+    public function printshop()
+    {
+        return $this->belongsTo('App\Printshop');
+    }
 }

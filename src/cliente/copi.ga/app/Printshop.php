@@ -57,4 +57,9 @@ class Printshop extends Authenticatable implements JWTSubject
     {
         return $this->hasMany('App\Bookbinding');
     }
+
+    public function credits()
+    {
+      return $this->hasMany('App\Cretit');
+    }
 }

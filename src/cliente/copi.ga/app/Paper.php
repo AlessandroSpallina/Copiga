@@ -13,4 +13,9 @@ class Paper extends Model
     'prezzoC',
     'selezionato'
     ];
+
+    public function printshop()
+    {
+        return $this->belongsTo('App\Printshop');
+    }
 }
