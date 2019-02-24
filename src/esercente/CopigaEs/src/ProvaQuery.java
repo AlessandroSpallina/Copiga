@@ -1,13 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author manlio
- */
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -25,16 +15,26 @@ import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-public class ProvaEsercente {
-    /*public static void main(String[] args) {
-        final ProvaEsercente ejemplo = new ProvaEsercente();
+/**
+ *
+ * @author manlio
+ */
+public class ProvaQuery {
+    public static void main(String[] args) {
+        final ProvaQuery ejemplo = new ProvaQuery();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 ejemplo.createAndShowGUI();
             }
         });
-    } */
+    }
+    public static int provaRowIndex;
 	
     private void createAndShowGUI() {
         JFrame frame = new JFrame("Prova Esercente");
@@ -88,11 +88,12 @@ public class ProvaEsercente {
         JButton accettaFileButton;
         JButton notificaRitiroButton;
         
+        
         ActionListener alvisualizza = new ActionListener(){
             public void actionPerformed(ActionEvent arg0) {
                 String rowIndex = null;
                 JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(visualizzaFileButton), 
-                        "\nBottone per Visualizzare il file inviato dal cliente\n\nButton clicked for row "+rowIndex);
+                        "\nBottone per Visualizzare il file inviato dal cliente\n\nButton clicked for row "+ provaRowIndex);
             }
         };
         ActionListener alaccetta = new ActionListener(){
@@ -120,6 +121,7 @@ public class ProvaEsercente {
             
             notificaRitiroButton = new JButton(COLUMN_NAMES[4]);
             notificaRitiroButton.addActionListener(alnotifica);
+            
             
             // a seconda dell'indice della colonna fa qualcosa
             switch (columnIndex) {
@@ -160,6 +162,7 @@ public class ProvaEsercente {
             int row = e.getY()/table.getRowHeight(); 
             if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {
                 Object value = table.getValueAt(row, column);
+                provaRowIndex = row;
                 if (value instanceof JButton) {
                     ((JButton)value).doClick();
 		}
