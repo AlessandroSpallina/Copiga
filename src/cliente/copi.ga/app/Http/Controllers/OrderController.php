@@ -38,7 +38,7 @@ class OrderController extends Controller
     {
         $joined = Auth::user()->credits()
                   ->rightJoin('printshops', 'credits.printshop_id', '=', 'printshops.id')
-                  ->select('credits.id', 'credits.importo', 'credits.printshop_id', 'printshops.name')
+                  ->select('credits.id', 'credits.disponibile', 'credits.printshop_id', 'printshops.name')
                   ->get();
 
         foreach ($joined as $j) {
@@ -114,6 +114,9 @@ class OrderController extends Controller
       } else if ($action == 'confirm') {
         $order->confirmed = true;
         $order->save();
+        $credit = Auth::user()->credits()->find($order->credit_id);
+        $credit->disponibile -= $order->price;
+        $credit->save();
         return redirect('/order-history')->with('success', 'Ordine creato con successo, riceverai una e-mail quando la copisteria avrà stampato il tuo file.');
       }
       dd($request);

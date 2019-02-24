@@ -32,7 +32,7 @@
                                 @foreach($credits as $credit)
                                 <tr>
                                     <td><button type="button" class="btn btn-outline-dark" style="margin:1px" id="c{{ $credit->id }}" onClick="addCreditSelection({{ $credit->id }})">{{ $credit->name }}</button></td>
-                                    <td>{{$credit->importo}} €</td>
+                                    <td>{{$credit->disponibile}} €</td>
                                     <td><button class="btn btn-outline-secondary">Prezzi</button></td>
                                 </tr>
                                 @endforeach

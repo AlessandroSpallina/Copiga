@@ -8,7 +8,8 @@ class Credit extends Model
 {
 
   protected $fillable = [
-      'importo'
+      'disponibile',
+      'totale'
   ];
 
 

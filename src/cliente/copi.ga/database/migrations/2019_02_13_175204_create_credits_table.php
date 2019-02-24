@@ -16,7 +16,8 @@ class CreateCreditsTable extends Migration
         Schema::create('credits', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->float('importo');
+            $table->float('disponibile');
+            $table->float('totale');
             $table->unsignedInteger('printshop_id');
             $table->unsignedInteger('user_id');
 
