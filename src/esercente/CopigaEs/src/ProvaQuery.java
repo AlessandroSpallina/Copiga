@@ -34,7 +34,10 @@ public class ProvaQuery {
             }
         });
     }
-    public static int provaRowIndex;
+    
+    // test per (actionlistener)alvisualizza
+    public static int provaRowIndex;// questo parametro viene settato nell'ulti-
+                                    // -ma funzione, prendendo il valore di row
 	
     private void createAndShowGUI() {
         JFrame frame = new JFrame("Prova Esercente");
