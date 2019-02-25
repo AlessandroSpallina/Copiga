@@ -1,3 +1,5 @@
+package copigaes;
+
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -38,10 +40,9 @@ public class ProvaQuery {
     */
     
     public ProvaQuery(){
-        final ProvaQuery ejemplo = new ProvaQuery();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                ejemplo.createAndShowGUI();
+                createAndShowGUI();
             }
         });
     }
@@ -49,7 +50,8 @@ public class ProvaQuery {
     // test per (actionlistener)alvisualizza
     public static int provaRowIndex;// questo parametro viene settato nell'ulti-
                                     // -ma funzione, prendendo il valore di row
-	
+    public boolean visibilita = false;
+    
     private void createAndShowGUI() {
         JFrame frame = new JFrame("Prova Esercente");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,7 +69,11 @@ public class ProvaQuery {
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
         frame.getContentPane().setPreferredSize(new Dimension(800, 400));
         frame.pack();
-        frame.setVisible(true);
+        frame.setVisible(visibilita);
+    }
+
+    void setVisible(boolean v) {
+        visibilita = v;
     }
 	
     public static class JTableModel extends AbstractTableModel {

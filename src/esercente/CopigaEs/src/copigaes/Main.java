@@ -13,12 +13,12 @@ import java.util.Scanner;
  */
 public class Main {
     static Login login = new Login();
-    /*public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException {
         invokeLater(new Runnable() {
             public void run() {
                 new LoginGUI(login).setVisible(true);
             }
-        }); */
+        });
         /*String email, password;
         Scanner s = new Scanner(System.in);
         System.out.println("Insert email: ");
@@ -26,5 +26,5 @@ public class Main {
         System.out.println("insert passw: ");
         password = s.next();
         login.connect(email, password);*/
-//    }
+    }
 }
