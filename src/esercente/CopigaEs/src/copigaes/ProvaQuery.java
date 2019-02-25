@@ -28,18 +28,10 @@ import javax.swing.table.TableCellRenderer;
  * @author manlio
  */
 public class ProvaQuery {
-    /*
-    public static void main(String[] args) {
-        final ProvaQuery ejemplo = new ProvaQuery();
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                ejemplo.createAndShowGUI();
-            }
-        });
-    }
-    */
     
-    public ProvaQuery(){
+    Login login;
+    public ProvaQuery(Login login){
+        this.login = login;
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
@@ -50,7 +42,7 @@ public class ProvaQuery {
     // test per (actionlistener)alvisualizza
     public static int provaRowIndex;// questo parametro viene settato nell'ulti-
                                     // -ma funzione, prendendo il valore di row
-    public boolean visibilita = false;
+    private boolean visibilita = false;
     
     private void createAndShowGUI() {
         JFrame frame = new JFrame("Prova Esercente");
@@ -67,7 +59,7 @@ public class ProvaQuery {
         table.addMouseListener(new JTableButtonMouseListener(table));
         
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-        frame.getContentPane().setPreferredSize(new Dimension(800, 400));
+        frame.getContentPane().setPreferredSize(new Dimension(1280, 720));
         frame.pack();
         frame.setVisible(visibilita);
     }
@@ -80,9 +72,9 @@ public class ProvaQuery {
         
 	private static final long serialVersionUID = 1L;
 	
-        private static final String[] COLUMN_NAMES = new String[] {"File", "Cliente", "Visualizza File", "Accetta File", "Notifica Ritiro"};
+        private static final String[] COLUMN_NAMES = new String[] {"Data", "Cliente", "Tipo Carta", "Rilegatura", "Fronte/Retro", "Colore", "Prezzo", "Pagine per lato", "Visualizza File", "Accetta File", "Notifica Ritiro"};
 	
-        private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class, String.class, JButton.class,  JButton.class,  JButton.class};
+        private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class, String.class, String.class, String.class, String.class, String.class, String.class, JButton.class,  JButton.class,  JButton.class};
 	
         
 	@Override public int getColumnCount() {
@@ -133,13 +125,13 @@ public class ProvaQuery {
 	@Override public Object getValueAt(final int rowIndex, final int columnIndex) {
             
             // TODO: implementare un metodo che generalizzi la creazione di questi bottoni
-            visualizzaFileButton = new JButton(COLUMN_NAMES[2]);
+            visualizzaFileButton = new JButton(COLUMN_NAMES[8]);
             visualizzaFileButton.addActionListener(alvisualizza);
             
-            accettaFileButton = new JButton(COLUMN_NAMES[3]);
+            accettaFileButton = new JButton(COLUMN_NAMES[9]);
             accettaFileButton.addActionListener(alaccetta);
             
-            notificaRitiroButton = new JButton(COLUMN_NAMES[4]);
+            notificaRitiroButton = new JButton(COLUMN_NAMES[10]);
             notificaRitiroButton.addActionListener(alnotifica);
             
             
@@ -147,10 +139,15 @@ public class ProvaQuery {
             switch (columnIndex) {
 		case 0: return "File numero "+rowIndex;
 		case 1: return "Text for "+rowIndex;
-		//case 2: // fall through
-		case 2: return visualizzaFileButton;
-                case 3: return accettaFileButton;
-                case 4: return notificaRitiroButton;
+		case 2: return "zzz";
+                case 3: return "aaa";
+                case 4: return "bbb";
+                case 5: return "ccc";
+                case 6: return "ddd";
+                case 7: return "eee";
+		case 8: return visualizzaFileButton;
+                case 9: return accettaFileButton;
+                case 10: return notificaRitiroButton;
 		default: return "Error";
             }
 	}	
