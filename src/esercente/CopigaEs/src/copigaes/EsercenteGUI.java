@@ -229,7 +229,7 @@ public class EsercenteGUI extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // handling code here: apri la finestra per visualizzare i task
-        new ProvaQuery().setVisible(true);
+        new ProvaQuery(login).setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
     
 
