@@ -25,6 +25,9 @@ class CreateOrdersTable extends Migration
             $table->float('price')->nullable();
             $table->boolean('confirmed')->default(false);
 
+            $table->boolean('accepted')->default(false); //accettato dalla copisteria
+            $table->boolean('printed')->default(false); //stampato dalla copisteria
+
             $table->unsignedInteger('paper_id');
             $table->unsignedInteger('bookbinding_id');
             $table->unsignedInteger('credit_id');
