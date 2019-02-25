@@ -7,6 +7,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Order;
+use App\Printshop;
 
 class AuthController extends Controller
 {
@@ -85,8 +87,13 @@ class AuthController extends Controller
         ]);
     }
 
-    public function accepted()
+    public function diffjobs()
     {
-        return response()->json('ok');
+        $time = request('time');
+        $printshop = auth()->user();
+        Order::get();
+
+
+        return response()->json(Order::get());
     }
 }

@@ -25,8 +25,9 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 
-    Route::post('newtask', 'AuthController@newtask');
+    Route::post('diffjobs', 'AuthController@diffjobs');
+    /*Route::post('newtask', 'AuthController@newtask');
     Route::post('accepted', 'AuthController@accepted');
-    Route::post('printed', 'AuthController@printed');
+    Route::post('printed', 'AuthController@printed');*/
 
 });
