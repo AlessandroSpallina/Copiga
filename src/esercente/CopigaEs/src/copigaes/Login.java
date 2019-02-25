@@ -13,11 +13,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
- *
+ *  https://code.google.com/archive/p/json-simple/wikis/DecodingExamples.wiki
  * @author manlio
  */
 
@@ -193,12 +194,17 @@ public class Login {
                     content.append(System.lineSeparator());
                 }
             }
-            JSONParser parser = new JSONParser();
+            System.out.println(content);
+            Object obj = JSONValue.parse(content.toString());
+            JSONArray array = (JSONArray)obj;
+            JSONObject object = (JSONObject)array.get(1);
+            System.out.println(object.get("time"));
+            /*JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(content.toString());
             
             
             String tempo = (String) json.get("time");
-            System.out.println(tempo);
+            System.out.println(tempo);*/
             
         } catch(Exception e){
             System.out.println(e.getMessage());
