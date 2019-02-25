@@ -8,7 +8,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Order;
+use App\Credit;
 use App\Printshop;
+use App\User;
+use App\Paper;
+use App\Bookbinding;
 
 class AuthController extends Controller
 {
@@ -90,10 +94,42 @@ class AuthController extends Controller
     public function diffjobs()
     {
         $time = request('time');
-        $printshop = auth()->user();
-        Order::get();
+
+        $credits_tmp = Credit::all()
+                       ->where('printshop_id', auth()->user()->id);
+
+        $credits = [];
+        $users = [];
+        $papers = [];
+        $bookbindings = [];
+
+        foreach ($credits_tmp as $credit) {
+          array_push($credits, $credit['id']);
+          array_push($users, User::find($credit['user_id'])->email);
+        }
+
+        $orders_tmp = Order::all();
+        $orders = [];
+
+        foreach ($orders_tmp as $order) {
+          $i = array_search($order['credit_id'], $credits);
+
+          if(($i !== false)) {
+            array_push($orders, [
+                                  'time' => $order['created_at']->format('H:i d-m-Y'),
+                                  'customer' => $users[$i],
+                                  'paper' => Paper::find($order['paper_id'])->formato,
+                                  'bookbinding' => Bookbinding::find($order['bookbinding_id'])->tipo,
+                                  'filename' => $order['filename'],
+                                  'filelink' => asset('storage/'.$order['filename']),
+
+                                ]);
+          }
+        }
 
 
-        return response()->json(Order::get());
+
+        return response()->json($orders);
+
     }
 }
