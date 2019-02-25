@@ -8,10 +8,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -152,12 +155,69 @@ public class Login {
             }
             
             
-            
             System.out.println(content);
             
         } catch(Exception e){
             System.out.println(e.getMessage());
         }
+        
+    }
+    
+    public void diffJobs(String date){
+        String url = "https://copi.ga/api/v1/diffjobs";
+        
+        String urlParameters = "token="+token+"&time="+date;
+        System.out.println(urlParameters);
+        byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+        
+        try {
+            
+            URL myurl = new URL(url);
+            con = (HttpURLConnection) myurl.openConnection();
+            con.setDoOutput(true);
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Accept", "application/json");
+            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            
+            try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+                wr.write(postData);
+            }
+            
+            StringBuilder content;
+            
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+                String line;
+                content = new StringBuilder();
+                while ((line = in.readLine()) != null) {
+                    content.append(line);
+                    content.append(System.lineSeparator());
+                }
+            }
+            JSONParser parser = new JSONParser();
+            JSONObject json = (JSONObject) parser.parse(content.toString());
+            
+            
+            String tempo = (String) json.get("time");
+            System.out.println(tempo);
+            
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+    }
+    // [{"time":"16:47 25-02-2019"},{"time":"17:23 25-02-2019"},{"time":"17:29 25-02-2019"}]
+    
+    public static void main(String args[]) throws IOException, ParseException{
+        
+        Login login = new Login();
+        String id = "dadanilo@a.a";
+        String pw = "aaaaaaaa";
+        login.connect(id, pw);
+        System.out.println(login.token);
+        
+        String data = "00:00 1-1-2019";
+        login.diffJobs(data);
+        
         
     }
 }
