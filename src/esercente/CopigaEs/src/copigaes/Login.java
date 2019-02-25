@@ -197,14 +197,19 @@ public class Login {
             System.out.println(content);
             Object obj = JSONValue.parse(content.toString());
             JSONArray array = (JSONArray)obj;
+            
+            // Test per gettare il tempo da un array json
             JSONObject object = (JSONObject)array.get(1);
-            System.out.println(object.get("time"));
-            /*JSONParser parser = new JSONParser();
-            JSONObject json = (JSONObject) parser.parse(content.toString());
+            System.out.println("time esempio: "+object.get("time")+"\n\n");
             
-            
-            String tempo = (String) json.get("time");
-            System.out.println(tempo);*/
+            for(int i = 0; i<= array.size(); i++){
+                object = (JSONObject)array.get(i);
+                System.out.println(object.get("time"));
+                System.out.println(object.get("customer"));
+                System.out.println(object.get("paper"));
+                System.out.println(object.get("bookbinding"));
+                System.out.println("\n");
+            }
             
         } catch(Exception e){
             System.out.println(e.getMessage());
