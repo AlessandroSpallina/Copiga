@@ -8,7 +8,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
@@ -34,6 +38,9 @@ public class Login {
     
     // token
     private String token;
+    
+    //private Map<String, String> elementoJob;
+    List<Map<String, String>> listaJobs;
     
     public void connect(String email, String passw) throws MalformedURLException, IOException{
         
@@ -194,6 +201,9 @@ public class Login {
                     content.append(System.lineSeparator());
                 }
             }
+            
+            listaJobs = new ArrayList<Map<String, String>>();
+            
             System.out.println(content);
             Object obj = JSONValue.parse(content.toString());
             JSONArray array = (JSONArray)obj;
@@ -203,17 +213,47 @@ public class Login {
             System.out.println("time esempio: "+object.get("time")+"\n\n");
             
             for(int i = 0; i<= array.size(); i++){
+                
+                Map<String, String> elementoJob = new HashMap<String,String>();
+                
+                // accede all'i-esimo ogge dell'array json
                 object = (JSONObject)array.get(i);
-                System.out.println(object.get("time"));
-                System.out.println(object.get("customer"));
-                System.out.println(object.get("paper"));
-                System.out.println(object.get("bookbinding"));
+                
+                elementoJob.put("time", (String) object.get("time"));
+                elementoJob.put("customer", (String) object.get("customer"));
+                elementoJob.put("paper", (String) object.get("paper"));
+                elementoJob.put("bookbinding", (String) object.get("bookbinding"));
+                elementoJob.put("filename", (String) object.get("filename"));
+                elementoJob.put("filelink", (String) object.get("filelink"));
+                elementoJob.put("bothsides", (String) object.get("bothsides"));
+                elementoJob.put("colour", (String) object.get("colour"));
+                elementoJob.put("pagesforside", (String) object.get("pagesforside"));
+                elementoJob.put("price", (String) object.get("price"));
+                
+                listaJobs.add(elementoJob);
+                
                 System.out.println("\n");
             }
             
         } catch(Exception e){
             System.out.println(e.getMessage());
         }
+        System.out.println("Lista delle Map di jobs\n");
+            for(Map<String, String> job : listaJobs){
+                
+                System.out.println("time: " + job.get("time"));
+                System.out.println("customer: " + job.get("customer"));
+                System.out.println("paper: " + job.get("paper"));
+                System.out.println("bookbinding: " + job.get("bookbinding"));
+                System.out.println("filename: " + job.get("filename"));
+                System.out.println("filelink: " + job.get("filelink"));
+                System.out.println("bothsides: " + job.get("bothsides"));
+                System.out.println("colour: " + job.get("colour"));
+                System.out.println("pagesforside: " + job.get("pagesforside"));
+                System.out.println("price: " + job.get("price"));
+                System.out.println("\n");
+            }
+            
         
     }
     // [{"time":"16:47 25-02-2019"},{"time":"17:23 25-02-2019"},{"time":"17:29 25-02-2019"}]
