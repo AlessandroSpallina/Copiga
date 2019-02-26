@@ -131,7 +131,6 @@ public class Login {
         }
     }
     
-    
     public void accepted(){
         String url = "https://copi.ga/api/v1/me";
         
@@ -292,19 +291,40 @@ public class Login {
             System.out.println(e.getMessage());
         }
     }
-    // [{"time":"16:47 25-02-2019"},{"time":"17:23 25-02-2019"},{"time":"17:29 25-02-2019"}]
-    /*
-    public static void main(String args[]) throws IOException, ParseException{
+    
+    public void printed(String id){
+        System.out.println(id);
+        String url = "https://copi.ga/api/v1/print";
         
-        Login login = new Login();
-        String id = "dadanilo@a.a";
-        String pw = "aaaaaaaa";
-        login.connect(id, pw);
-        System.out.println(login.token);
+        String urlParameters = "token="+token+"&id="+id;
+        System.out.println(urlParameters);
+        byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
         
-        String data = "00:00 1-1-2019";
-        login.diffJobs(data);
+        try {
+            URL myurl = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) myurl.openConnection();
+            con.setDoOutput(true);
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Accept", "application/json");
+            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            
+            try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+                wr.write(postData);
+            }
+            StringBuilder content;
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+                String line;
+                content = new StringBuilder();
+                while ((line = in.readLine()) != null) {
+                    content.append(line);
+                    content.append(System.lineSeparator());
+                }
+            }
+            System.out.println(content);
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
-    */
+    
 }
     

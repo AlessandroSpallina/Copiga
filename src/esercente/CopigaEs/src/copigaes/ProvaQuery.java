@@ -147,8 +147,7 @@ public class ProvaQuery {
         };
         ActionListener alnotifica = new ActionListener(){
             public void actionPerformed(ActionEvent arg0) {
-                JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(notificaRitiroButton), 
-                                    "Bottone per notificare il ritiro");
+                login.printed(job.get("id"));
             }
             
         };
