@@ -43,6 +43,11 @@ public class ProvaQuery {
     // test per (actionlistener)alvisualizza
     public static int provaRowIndex;// questo parametro viene settato nell'ulti-
                                     // -ma funzione, prendendo il valore di row
+    
+    // avendo creato la frame "a mano", è necessario specificare la visibilità
+    // iniziale con un booleano settato su "false".
+    // più in basso viene definito il metodo che viene richiamato da EsercenteGUI
+    // per settare la visibilità a true
     private boolean visibilita = false;
     
     public ProvaQuery(Login login, List<Map<String, String>> listaJobs){
@@ -79,7 +84,7 @@ public class ProvaQuery {
         frame.setVisible(visibilita);
     }
 
-    void setVisible(boolean v) {
+    public void setVisible(boolean v) {
         visibilita = v;
     }
 	
@@ -129,15 +134,23 @@ public class ProvaQuery {
         };
         ActionListener alaccetta = new ActionListener(){
             public void actionPerformed(ActionEvent arg0) {
+                String accettato = (String) job.get("accepted");
+                if(accettato.equals("yes")){
                 JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(accettaFileButton), 
-                                    "Bottone per notificare l'accettazione del file al cliente");
+                                    "Task già accettato.");
+                } else {
+                    login.accettaTask(job.get("id"));
+                    JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(accettaFileButton), 
+                                    "Task accettato.");
+                }
             }
         };
         ActionListener alnotifica = new ActionListener(){
             public void actionPerformed(ActionEvent arg0) {
                 JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(notificaRitiroButton), 
-                                    "Bottone per notificare il ritiro del materiale al cliente");
+                                    "Bottone per notificare il ritiro");
             }
+            
         };
         
         

@@ -220,6 +220,7 @@ public class Login {
                 // accede all'i-esimo ogge dell'array json
                 object = (JSONObject)array.get(i);
                 
+                elementoJob.put("id", (String) object.get("id"));
                 elementoJob.put("time", (String) object.get("time"));
                 elementoJob.put("customer", (String) object.get("customer"));
                 elementoJob.put("paper", (String) object.get("paper"));
@@ -230,6 +231,7 @@ public class Login {
                 elementoJob.put("colour", (String) object.get("colour"));
                 elementoJob.put("pagesforside", (String) object.get("pagesforside"));
                 elementoJob.put("price", (String) object.get("price"));
+                elementoJob.put("accepted", (String) object.get("accepted"));
                 
                 listaJobs.add(i, elementoJob);
                 
@@ -253,8 +255,42 @@ public class Login {
             System.out.println("pagesforside: " + job.get("pagesforside"));
             System.out.println("price: " + job.get("price"));
             System.out.println("\n");
-        } */
+        }*/
         return listaJobs;
+    }
+    
+    public void accettaTask(String id){
+        System.out.println(id);
+        String url = "https://copi.ga/api/v1/accept";
+        
+        String urlParameters = "token="+token+"&id="+id;
+        System.out.println(urlParameters);
+        byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+        
+        try {
+            URL myurl = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) myurl.openConnection();
+            con.setDoOutput(true);
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Accept", "application/json");
+            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            
+            try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+                wr.write(postData);
+            }
+            StringBuilder content;
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+                String line;
+                content = new StringBuilder();
+                while ((line = in.readLine()) != null) {
+                    content.append(line);
+                    content.append(System.lineSeparator());
+                }
+            }
+            System.out.println(content);
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
     // [{"time":"16:47 25-02-2019"},{"time":"17:23 25-02-2019"},{"time":"17:29 25-02-2019"}]
     /*
