@@ -32,6 +32,8 @@ public class Login {
         System.out.println("Starting connection to copi.ga...");
     }
     
+    // lista dei jobs
+    List<Map<String, String>> listaJobs; // il suo getter è diffJobs
     
     // connection
     private static HttpURLConnection con;
@@ -39,8 +41,6 @@ public class Login {
     // token
     private String token;
     
-    //private Map<String, String> elementoJob;
-    List<Map<String, String>> listaJobs;
     
     public void connect(String email, String passw) throws MalformedURLException, IOException{
         
@@ -171,7 +171,8 @@ public class Login {
         
     }
     
-    public void diffJobs(String date){
+    public List diffJobs(String date){
+        
         String url = "https://copi.ga/api/v1/diffjobs";
         
         String urlParameters = "token="+token+"&time="+date;
@@ -230,7 +231,7 @@ public class Login {
                 elementoJob.put("pagesforside", (String) object.get("pagesforside"));
                 elementoJob.put("price", (String) object.get("price"));
                 
-                listaJobs.add(elementoJob);
+                listaJobs.add(i, elementoJob);
                 
                 System.out.println("\n");
             }
@@ -238,26 +239,25 @@ public class Login {
         } catch(Exception e){
             System.out.println(e.getMessage());
         }
+        /*
         System.out.println("Lista delle Map di jobs\n");
-            for(Map<String, String> job : listaJobs){
-                
-                System.out.println("time: " + job.get("time"));
-                System.out.println("customer: " + job.get("customer"));
-                System.out.println("paper: " + job.get("paper"));
-                System.out.println("bookbinding: " + job.get("bookbinding"));
-                System.out.println("filename: " + job.get("filename"));
-                System.out.println("filelink: " + job.get("filelink"));
-                System.out.println("bothsides: " + job.get("bothsides"));
-                System.out.println("colour: " + job.get("colour"));
-                System.out.println("pagesforside: " + job.get("pagesforside"));
-                System.out.println("price: " + job.get("price"));
-                System.out.println("\n");
-            }
-            
-        
+        for(Map<String, String> job : listaJobs){        
+            System.out.println("time: " + job.get("time"));
+            System.out.println("customer: " + job.get("customer"));
+            System.out.println("paper: " + job.get("paper"));
+            System.out.println("bookbinding: " + job.get("bookbinding"));
+            System.out.println("filename: " + job.get("filename"));
+            System.out.println("filelink: " + job.get("filelink"));
+            System.out.println("bothsides: " + job.get("bothsides"));
+            System.out.println("colour: " + job.get("colour"));
+            System.out.println("pagesforside: " + job.get("pagesforside"));
+            System.out.println("price: " + job.get("price"));
+            System.out.println("\n");
+        } */
+        return listaJobs;
     }
     // [{"time":"16:47 25-02-2019"},{"time":"17:23 25-02-2019"},{"time":"17:29 25-02-2019"}]
-    
+    /*
     public static void main(String args[]) throws IOException, ParseException{
         
         Login login = new Login();
@@ -268,8 +268,7 @@ public class Login {
         
         String data = "00:00 1-1-2019";
         login.diffJobs(data);
-        
-        
     }
+    */
 }
     

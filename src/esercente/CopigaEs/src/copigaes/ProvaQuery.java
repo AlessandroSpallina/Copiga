@@ -8,6 +8,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -28,21 +36,28 @@ import javax.swing.table.TableCellRenderer;
  * @author manlio
  */
 public class ProvaQuery {
+    private List<Map<String, String>> listaJobs = new ArrayList<Map<String, String>>();
+    private Map<String, String> job = new HashMap<String, String>();
+    private Login login;
     
-    Login login;
-    public ProvaQuery(Login login){
+    // test per (actionlistener)alvisualizza
+    public static int provaRowIndex;// questo parametro viene settato nell'ulti-
+                                    // -ma funzione, prendendo il valore di row
+    private boolean visibilita = false;
+    
+    public ProvaQuery(Login login, List<Map<String, String>> listaJobs){
         this.login = login;
+        this.listaJobs = listaJobs;
+        
+        // console view - debug only
+        System.out.println(listaJobs.toString());
+        
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
             }
         });
     }
-    
-    // test per (actionlistener)alvisualizza
-    public static int provaRowIndex;// questo parametro viene settato nell'ulti-
-                                    // -ma funzione, prendendo il valore di row
-    private boolean visibilita = false;
     
     private void createAndShowGUI() {
         JFrame frame = new JFrame("Prova Esercente");
@@ -68,13 +83,13 @@ public class ProvaQuery {
         visibilita = v;
     }
 	
-    public static class JTableModel extends AbstractTableModel {
+    public class JTableModel extends AbstractTableModel {
         
 	private static final long serialVersionUID = 1L;
 	
-        private static final String[] COLUMN_NAMES = new String[] {"Data", "Cliente", "Tipo Carta", "Rilegatura", "Fronte/Retro", "Colore", "Prezzo", "Pagine per lato", "Visualizza File", "Accetta File", "Notifica Ritiro"};
+        private final String[] COLUMN_NAMES = new String[] {"Data", "Cliente", "Tipo Carta", "Rilegatura", "Fronte/Retro", "Colore", "Prezzo", "Pagine per lato", "Visualizza File", "Accetta File", "Notifica Ritiro"};
 	
-        private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class, String.class, String.class, String.class, String.class, String.class, String.class, JButton.class,  JButton.class,  JButton.class};
+        private final Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class, String.class, String.class, String.class, String.class, String.class, String.class, JButton.class,  JButton.class,  JButton.class};
 	
         
 	@Override public int getColumnCount() {
@@ -83,7 +98,7 @@ public class ProvaQuery {
         
         
         @Override public int getRowCount() {
-            return 10;
+            return listaJobs.size();
 	}
 	
         
@@ -103,9 +118,13 @@ public class ProvaQuery {
         
         ActionListener alvisualizza = new ActionListener(){
             public void actionPerformed(ActionEvent arg0) {
-                String rowIndex = null;
-                JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(visualizzaFileButton), 
-                        "\nBottone per Visualizzare il file inviato dal cliente\n\nButton clicked for row "+ provaRowIndex);
+                URI uri;
+                try {
+                    uri = new URI(job.get("filelink"));
+                    OpenURL compurl = new OpenURL(uri);
+                } catch (URISyntaxException ex) {
+                    Logger.getLogger(LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         };
         ActionListener alaccetta = new ActionListener(){
@@ -134,17 +153,18 @@ public class ProvaQuery {
             notificaRitiroButton = new JButton(COLUMN_NAMES[10]);
             notificaRitiroButton.addActionListener(alnotifica);
             
+            job = listaJobs.get(rowIndex);
             
             // a seconda dell'indice della colonna fa qualcosa
             switch (columnIndex) {
-		case 0: return "File numero "+rowIndex;
-		case 1: return "Text for "+rowIndex;
-		case 2: return "zzz";
-                case 3: return "aaa";
-                case 4: return "bbb";
-                case 5: return "ccc";
-                case 6: return "ddd";
-                case 7: return "eee";
+		case 0: return job.get("time"); 
+		case 1: return job.get("customer");
+		case 2: return job.get("paper");
+                case 3: return job.get("bookbinding");
+                case 4: return job.get("bothsides");
+                case 5: return job.get("colour");
+                case 6: return job.get("price") + " €";
+                case 7: return job.get("pagesforside");
 		case 8: return visualizzaFileButton;
                 case 9: return accettaFileButton;
                 case 10: return notificaRitiroButton;

@@ -50,12 +50,17 @@ public class LoginGUI extends javax.swing.JFrame {
 
         jLabel2.setText("password");
 
-        jTextField1.setText("mario@m.m");
+        jTextField1.setText("dadanilo@a.a");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/copigaes/images/copiga_logo.png"))); // NOI18N
         jLabel3.setText("jLabel3");
 
-        jPasswordField1.setText("mmmmmmmm");
+        jPasswordField1.setText("aaaaaaaa");
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -151,6 +156,10 @@ public class LoginGUI extends javax.swing.JFrame {
             Logger.getLogger(LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

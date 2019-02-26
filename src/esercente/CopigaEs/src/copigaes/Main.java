@@ -12,7 +12,7 @@ import java.util.Scanner;
  * @author manlio
  */
 public class Main {
-    /*
+   // /*
     static Login login = new Login();
     public static void main(String args[]) throws IOException {
         invokeLater(new Runnable() {
@@ -21,5 +21,5 @@ public class Main {
             }
         });
     }
-    */
+   // */
 }
