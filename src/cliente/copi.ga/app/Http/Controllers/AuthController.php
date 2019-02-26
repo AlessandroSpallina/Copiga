@@ -6,6 +6,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Order;
 use App\Credit;
@@ -94,20 +95,18 @@ class AuthController extends Controller
     public function diffjobs()
     {
         $credits_tmp = Credit::all()
-                       ->where('printshop_id', auth()->user()->id)
-                       ->where('printed', false);
+                       ->where('printshop_id', auth()->user()->id);
 
         $credits = [];
         $users = [];
-        $papers = [];
-        $bookbindings = [];
 
         foreach ($credits_tmp as $credit) {
           array_push($credits, $credit['id']);
           array_push($users, User::find($credit['user_id'])->email);
         }
 
-        $orders_tmp = Order::all();
+        $orders_tmp = Order::all()
+                        ->where('printed', false);
         $orders = [];
         $requestime = strtotime(request('time'));
 
@@ -115,6 +114,7 @@ class AuthController extends Controller
           $i = array_search($order['credit_id'], $credits);
           if(($i !== false) && ($requestime <= strtotime($order['created_at']))) {
             array_push($orders, [
+                                  'id' => $order['id'],
                                   'time' => $order['created_at']->format('H:i d-m-Y'),
                                   'customer' => $users[$i],
                                   'paper' => Paper::find($order['paper_id'])->formato,
@@ -124,11 +124,70 @@ class AuthController extends Controller
                                   'bothsides' => ($order['bothSides'] == true) ? 'yes' : 'no',
                                   'colour' => ($order['colour'] == true) ? 'yes' : 'no',
                                   'pagesforside' => (string) $order['pagesForSide'],
-                                  'price' => (string) $order['price']
+                                  'price' => (string) $order['price'],
+                                  'accepted' => ($order['accepted'] == true) ? 'yes' : 'no'
                                 ]);
           }
         }
         return response()->json($orders);
+    }
+
+    public function accept()
+    {
+      $credits_tmp = Credit::all()
+                      ->where('printshop_id', auth()->user()->id);
+
+      $credits = [];
+
+      foreach ($credits_tmp as $credit) {
+        array_push($credits, $credit['id']);
+      }
+
+      $order = Order::find(request('id'));
+
+      if((!$order) || (!in_array($order['credit_id'], $credits))) { //se non esiste l'id o non esiste l'id sotto il dominio di quella copisteria
+        return response()->json(['error' => 'Not Found'], 404);
+      }
+
+      if($order['accepted']) {
+        return response()->json(['status' => 'Job Already Accepted']);
+      } else {
+        $order['accepted'] = true;
+        $order->save();
+        return response()->json(['status' => 'ok']);
+      }
+
+    }
+
+    public function print()
+    {
+      $credits_tmp = Credit::all()
+                      ->where('printshop_id', auth()->user()->id);
+
+      $credits = [];
+
+      foreach ($credits_tmp as $credit) {
+        array_push($credits, $credit['id']);
+      }
+
+      $order = Order::find(request('id'));
+
+      if((!$order) || (!in_array($order['credit_id'], $credits))) { //se non esiste l'id o non esiste l'id sotto il dominio di quella copisteria
+        return response()->json(['error' => 'Not Found'], 404);
+      }
+
+      if($order['printed']) {
+        return response()->json(['status' => 'Job Already Printed']);
+      } else {
+        if($order['accepted']) {
+          $order['printed'] = true;
+          $order->save();
+          return response()->json(['status' => 'ok']);
+        } else {
+          return response()->json(['status' => 'Need to Accept the Job first']);
+        }
+      }
+
     }
 
 
