@@ -93,10 +93,9 @@ class AuthController extends Controller
 
     public function diffjobs()
     {
-        $time = request('time');
-
         $credits_tmp = Credit::all()
-                       ->where('printshop_id', auth()->user()->id);
+                       ->where('printshop_id', auth()->user()->id)
+                       ->where('printed', false);
 
         $credits = [];
         $users = [];
@@ -110,11 +109,11 @@ class AuthController extends Controller
 
         $orders_tmp = Order::all();
         $orders = [];
+        $requestime = strtotime(request('time'));
 
         foreach ($orders_tmp as $order) {
           $i = array_search($order['credit_id'], $credits);
-
-          if(($i !== false)) {
+          if(($i !== false) && ($requestime <= strtotime($order['created_at']))) {
             array_push($orders, [
                                   'time' => $order['created_at']->format('H:i d-m-Y'),
                                   'customer' => $users[$i],
@@ -122,14 +121,17 @@ class AuthController extends Controller
                                   'bookbinding' => Bookbinding::find($order['bookbinding_id'])->tipo,
                                   'filename' => $order['filename'],
                                   'filelink' => asset('storage/'.$order['filename']),
-
+                                  'bothsides' => ($order['bothSides'] == true) ? 'yes' : 'no',
+                                  'colour' => ($order['colour'] == true) ? 'yes' : 'no',
+                                  'pagesforside' => (string) $order['pagesForSide'],
+                                  'price' => (string) $order['price']
                                 ]);
           }
         }
-
-
-
         return response()->json($orders);
-
     }
+
+
+
+
 }
