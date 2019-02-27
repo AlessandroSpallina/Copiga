@@ -114,7 +114,7 @@ class AuthController extends Controller
           $i = array_search($order['credit_id'], $credits);
           if(($i !== false) && ($requestime <= strtotime($order['created_at']))) {
             array_push($orders, [
-                                  'id' => $order['id'],
+                                  'id' => (string) $order['id'],
                                   'time' => $order['created_at']->format('H:i d-m-Y'),
                                   'customer' => $users[$i],
                                   'paper' => Paper::find($order['paper_id'])->formato,
@@ -122,7 +122,7 @@ class AuthController extends Controller
                                   'filename' => $order['filename'],
                                   'filelink' => asset('storage/'.$order['filename']),
                                   'bothsides' => ($order['bothSides'] == true) ? 'yes' : 'no',
-                                  'colour' => ($order['colour'] == true) ? 'yes' : 'no',
+                                  'colour' => ($order['color'] == true) ? 'yes' : 'no',
                                   'pagesforside' => (string) $order['pagesForSide'],
                                   'price' => (string) $order['price'],
                                   'accepted' => ($order['accepted'] == true) ? 'yes' : 'no'
