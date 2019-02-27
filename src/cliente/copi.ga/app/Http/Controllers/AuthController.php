@@ -14,6 +14,8 @@ use App\Printshop;
 use App\User;
 use App\Paper;
 use App\Bookbinding;
+use App\Mail\OrderMail;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -154,6 +156,17 @@ class AuthController extends Controller
       } else {
         $order['accepted'] = true;
         $order->save();
+
+
+        $credit = Credit::find($order['credit_id']);
+        $credit->totale -= $order->price;
+        $credit->save();
+
+
+        $user = User::find($credit->user_id);
+
+        Mail::to($user['email'])->send(new OrderMail($user, 'Ordine Accettato', 'Il tuo ordine è stato <b>accettato</b> dalla copisteria.<br>Riceverai un\'altra email quando potrai andare a ritirare le tue stampe.', $order));
+
         return response()->json(['status' => 'ok']);
       }
 
@@ -182,6 +195,12 @@ class AuthController extends Controller
         if($order['accepted']) {
           $order['printed'] = true;
           $order->save();
+
+          $user_id = Credit::find($order['credit_id'])->user_id;
+          $user = User::find($user_id);
+
+          Mail::to($user['email'])->send(new OrderMail($user, 'Ordine Stampato', 'Il tuo ordine è stato <b>stampato</b>!<br>Puoi adesso recarti in copisteria e ritirare il tuo ordine.', $order));
+
           return response()->json(['status' => 'ok']);
         } else {
           return response()->json(['status' => 'Need to Accept the Job first']);

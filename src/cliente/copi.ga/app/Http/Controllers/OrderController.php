@@ -69,7 +69,6 @@ class OrderController extends Controller
     public function createOrder(Request $request)
     {
         if ($request->fileUpload->isValid()) {
-            dd($request);
             $file = request()->fileUpload;
 
             $order = new Order();
