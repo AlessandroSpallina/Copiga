@@ -35,10 +35,13 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author manlio
  */
-public class ProvaQuery {
+public class JobsTable {
     private List<Map<String, String>> listaJobs = new ArrayList<Map<String, String>>();
     private Map<String, String> job = new HashMap<String, String>();
     private Login login;
+    private JFrame frame;
+    private RefreshTable refresh;
+    
     
     // test per (actionlistener)alvisualizza
     public static int provaRowIndex;// questo parametro viene settato nell'ulti-
@@ -50,7 +53,7 @@ public class ProvaQuery {
     // per settare la visibilità a true
     private boolean visibilita = false;
     
-    public ProvaQuery(Login login, List<Map<String, String>> listaJobs){
+    public JobsTable(Login login, List<Map<String, String>> listaJobs){
         this.login = login;
         this.listaJobs = listaJobs;
         
@@ -60,13 +63,15 @@ public class ProvaQuery {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
+                refresh = new RefreshTable(frame, login);
+                refresh.start();
             }
         });
     }
     
     private void createAndShowGUI() {
-        JFrame frame = new JFrame("Prova Esercente");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame = new JFrame("Prova Esercente");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         JTable table = new JTable(new JTableModel()); 
         JScrollPane scrollPane = new JScrollPane(table);
@@ -82,6 +87,7 @@ public class ProvaQuery {
         frame.getContentPane().setPreferredSize(new Dimension(1280, 720));
         frame.pack();
         frame.setVisible(visibilita);
+        
     }
 
     public void setVisible(boolean v) {
@@ -92,9 +98,28 @@ public class ProvaQuery {
         
 	private static final long serialVersionUID = 1L;
 	
-        private final String[] COLUMN_NAMES = new String[] {"Data", "Cliente", "Tipo Carta", "Rilegatura", "Fronte/Retro", "Colore", "Prezzo", "Pagine per lato", "Visualizza File", "Accetta File", "Notifica Ritiro"};
+        private final String[] COLUMN_NAMES = new String[] {"Data",
+                                                            "Cliente",
+                                                            "Tipo Carta",
+                                                            "Rilegatura",
+                                                            "Fronte/Retro",
+                                                            "Colore",
+                                                            "Prezzo",
+                                                            "Pagine per lato",
+                                                            "Visualizza File",
+                                                            "Accetta File",
+                                                            "Notifica Ritiro"};
 	
-        private final Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class, String.class, String.class, String.class, String.class, String.class, String.class, JButton.class,  JButton.class,  JButton.class};
+        private final Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class,
+                                                                String.class,
+                                                                String.class,
+                                                                String.class,
+                                                                String.class,
+                                                                String.class,
+                                                                String.class,
+                                                                JButton.class,
+                                                                JButton.class,
+                                                                JButton.class};
 	
         
 	@Override public int getColumnCount() {
@@ -186,7 +211,12 @@ public class ProvaQuery {
     }
 
     private static class JTableButtonRenderer implements TableCellRenderer {		
-        @Override public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        @Override public Component getTableCellRendererComponent(JTable table, 
+                                                                 Object value,
+                                                                 boolean isSelected,
+                                                                 boolean hasFocus,
+                                                                 int row,
+                                                                 int column) {
             JButton button = (JButton)value;
             if (isSelected) {
                 button.setForeground(table.getSelectionForeground());

@@ -28,10 +28,6 @@ import org.json.simple.parser.ParseException;
 
 public class Login {
     
-    public void Login(){
-        System.out.println("Starting connection to copi.ga...");
-    }
-    
     // lista dei jobs
     List<Map<String, String>> listaJobs; // il suo getter è diffJobs
     
@@ -40,7 +36,6 @@ public class Login {
     
     // token
     private String token;
-    
     
     public void connect(String email, String passw) throws MalformedURLException, IOException{
         
@@ -83,7 +78,6 @@ public class Login {
             System.out.println(e.getMessage());
         }
     }
-    
     
     public int getHttpStatus(){
         int code = 0;
@@ -131,7 +125,7 @@ public class Login {
         }
     }
     
-    public void accepted(){
+    public void me(){
         String url = "https://copi.ga/api/v1/me";
         
         String urlParameters = "token="+token;
@@ -204,13 +198,14 @@ public class Login {
             
             listaJobs = new ArrayList<Map<String, String>>();
             
-            System.out.println(content);
+            System.out.println("Manlio pelato: "+content);
             Object obj = JSONValue.parse(content.toString());
             JSONArray array = (JSONArray)obj;
+            System.out.println(array.toString());
             
             // Test per gettare il tempo da un array json
-            JSONObject object = (JSONObject)array.get(1);
-            System.out.println("time esempio: "+object.get("time")+"\n\n");
+            JSONObject object; // = (JSONObject)array.get(0);
+            //System.out.println("time esempio: "+object.get("time")+"\n\n");
             
             for(int i = 0; i<= array.size(); i++){
                 
@@ -240,6 +235,7 @@ public class Login {
         } catch(Exception e){
             System.out.println(e.getMessage());
         }
+        
         /*
         System.out.println("Lista delle Map di jobs\n");
         for(Map<String, String> job : listaJobs){        
@@ -254,7 +250,8 @@ public class Login {
             System.out.println("pagesforside: " + job.get("pagesforside"));
             System.out.println("price: " + job.get("price"));
             System.out.println("\n");
-        }*/
+        }
+        */
         return listaJobs;
     }
     

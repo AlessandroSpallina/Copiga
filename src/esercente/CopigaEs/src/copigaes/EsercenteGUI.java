@@ -23,6 +23,7 @@ public class EsercenteGUI extends javax.swing.JFrame {
     /**
      * Creates new form EsercenteGUI
      */
+    private RefreshTable refresh;
     private List<Map<String, String>> listaJobs = new ArrayList<Map<String, String>>();
     Login login;
     public EsercenteGUI(Login login) {
@@ -217,8 +218,7 @@ public class EsercenteGUI extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // handling code here: apri la finestra per visualizzare i task
         listaJobs = login.diffJobs("00:00 1-1-2019");
-        new ProvaQuery(login, listaJobs).setVisible(true);
-        
+        new JobsTable(login, listaJobs).setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
     
 
