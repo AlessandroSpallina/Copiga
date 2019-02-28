@@ -34,7 +34,31 @@
                             </tr>
                         </thead>
                         <tbody>
+                          @foreach($content as $c)
+                          <tr>
+                              <td>{{$c->created_at}}</td>
+                              <td><a href="{{$c->filename}}" target="_blank" class="btn btn-outline-dark btn-sm">Link</a></td>
+                              <td>{{$c->printshop_id}}</td>
+                              <td>{{$c->price}} €</td>
+                              <td>
 
+
+                                @if ($c->accepted)
+                                    @if ($c->printed)
+                                      <span class="badge badge-success">Stampato</span>
+                                    @else
+                                      <span class="badge badge-warning">Accettato</span>
+                                    @endif
+                                @else
+                                    <span class="badge badge-secondary">Inviato</span>
+                                @endif
+                              </td>
+
+
+                              <td>{{$c->printshop_id}}</td>
+                              <td><a href="" target="_blank" class="btn btn-outline-primary btn-sm">Dettagli</a></td>
+                          </tr>
+                          @endforeach
                         </tbody>
                       </table>
                     <div>

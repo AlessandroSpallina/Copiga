@@ -118,7 +118,33 @@ class OrderController extends Controller
         $credit->save();
         return redirect('/order-history')->with('success', 'Ordine creato con successo, riceverai una e-mail quando la copisteria avrà stampato il tuo file.');
       }
-      dd($request);
+    }
 
+    public function showOrderHistory()
+    {
+      /*$joined = Auth::user()->credits()
+                ->join('orders', 'orders.credit_id', '=', 'credits.id');
+
+                dd($joined);
+                ->select('credits.id', 'credits.disponibile', 'credits.printshop_id', 'printshops.name')
+                ->get();*/
+
+      $joined = Auth::user()->credits()
+                ->join('orders', 'credits.id', '=', 'orders.credit_id')
+                ->select('orders.created_at', 'orders.filename', 'credits.printshop_id', 'orders.price', 'orders.accepted', 'orders.printed')
+                ->get();
+
+      foreach ($joined as $j) {
+        $j->filename = asset('storage/'.$j->filename);
+        $j->printshop_id = Printshop::find($j->printshop_id)->name;
+      }
+
+    //  $printshop = Printshop::find($joined->)
+
+      //dd($joined);
+
+      return view('order_history', [
+      'content' => $joined->reverse()
+      ]);
     }
 }
