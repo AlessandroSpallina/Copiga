@@ -1,3 +1,5 @@
+
+  
 package copigaes;
 
 
@@ -21,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -40,8 +43,6 @@ public class JobsTable {
     private Map<String, String> job = new HashMap<String, String>();
     private Login login;
     private JFrame frame;
-    private RefreshTable refresh;
-    
     
     // test per (actionlistener)alvisualizza
     public static int provaRowIndex;// questo parametro viene settato nell'ulti-
@@ -63,8 +64,8 @@ public class JobsTable {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
-                refresh = new RefreshTable(frame, login);
-                refresh.start();
+                //refresh = new RefreshTable(frame, login);
+                //refresh.start();
             }
         });
     }
@@ -73,7 +74,8 @@ public class JobsTable {
         frame = new JFrame("Prova Esercente");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        JTable table = new JTable(new JTableModel()); 
+        JTableModel model = new JTableModel();
+        JTable table = new JTable(model); 
         JScrollPane scrollPane = new JScrollPane(table);
 	table.setFillsViewportHeight(true);	
 		
@@ -87,7 +89,13 @@ public class JobsTable {
         frame.getContentPane().setPreferredSize(new Dimension(1280, 720));
         frame.pack();
         frame.setVisible(visibilita);
-        
+        Timer timer = new Timer(1250, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.addRow();
+            }
+        });
+        timer.start();
     }
 
     public void setVisible(boolean v) {
@@ -207,7 +215,12 @@ public class JobsTable {
                 case 10: return notificaRitiroButton;
 		default: return "Error";
             }
-	}	
+	}
+        
+        public void addRow(){
+            listaJobs = login.diffJobs("00:00 1-1-2019");
+            this.fireTableDataChanged();
+        }
     }
 
     private static class JTableButtonRenderer implements TableCellRenderer {		

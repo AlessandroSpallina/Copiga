@@ -1,3 +1,5 @@
+package Testing;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,7 +10,6 @@
  *
  * @author manlio
  */
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -25,16 +26,27 @@ import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-public class ProvaEsercente {
-    /*public static void main(String[] args) {
-        final ProvaEsercente ejemplo = new ProvaEsercente();
+/**
+ *
+ * @author manlio
+ */
+public class PrototipoFunzionante {
+    /*
+    public static void main(String[] args) {
+        final PrototipoFunzionante ejemplo = new PrototipoFunzionante();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 ejemplo.createAndShowGUI();
             }
         });
-    } */
+    }
+    */
 	
     private void createAndShowGUI() {
         JFrame frame = new JFrame("Prova Esercente");
@@ -62,7 +74,7 @@ public class ProvaEsercente {
 	
         private static final String[] COLUMN_NAMES = new String[] {"File", "Cliente", "Visualizza File", "Accetta File", "Notifica Ritiro"};
 	
-        private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class, String.class, JButton.class,  JButton.class,  JButton.class};
+        private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {Integer.class, String.class, JButton.class,  JButton.class,  JButton.class};
 	
         
 	@Override public int getColumnCount() {
@@ -84,51 +96,38 @@ public class ProvaEsercente {
         	return COLUMN_TYPES[columnIndex];
 	}
         
-        JButton visualizzaFileButton;
-        JButton accettaFileButton;
-        JButton notificaRitiroButton;
-        
-        ActionListener alvisualizza = new ActionListener(){
-            public void actionPerformed(ActionEvent arg0) {
-                String rowIndex = null;
-                JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(visualizzaFileButton), 
-                        "\nBottone per Visualizzare il file inviato dal cliente\n\nButton clicked for row "+rowIndex);
-            }
-        };
-        ActionListener alaccetta = new ActionListener(){
-            public void actionPerformed(ActionEvent arg0) {
-                JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(accettaFileButton), 
-                                    "Bottone per notificare l'accettazione del file al cliente");
-            }
-        };
-        ActionListener alnotifica = new ActionListener(){
-            public void actionPerformed(ActionEvent arg0) {
-                JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(notificaRitiroButton), 
-                                    "Bottone per notificare il ritiro del materiale al cliente");
-            }
-        };
-        
         
 	@Override public Object getValueAt(final int rowIndex, final int columnIndex) {
             
-            // TODO: implementare un metodo che generalizzi la creazione di questi bottoni
-            visualizzaFileButton = new JButton(COLUMN_NAMES[2]);
-            visualizzaFileButton.addActionListener(alvisualizza);
-            
-            accettaFileButton = new JButton(COLUMN_NAMES[3]);
-            accettaFileButton.addActionListener(alaccetta);
-            
-            notificaRitiroButton = new JButton(COLUMN_NAMES[4]);
-            notificaRitiroButton.addActionListener(alnotifica);
-            
             // a seconda dell'indice della colonna fa qualcosa
+            
             switch (columnIndex) {
-		case 0: return "File numero "+rowIndex;
+		case 0: return rowIndex;
 		case 1: return "Text for "+rowIndex;
-		//case 2: // fall through
-		case 2: return visualizzaFileButton;
-                case 3: return accettaFileButton;
-                case 4: return notificaRitiroButton;
+		case 2: // fall through
+		case 3: final JButton visualizzaFileButton = new JButton(COLUMN_NAMES[columnIndex]);
+                    visualizzaFileButton.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent arg0) {
+                            JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(visualizzaFileButton), 
+                                    "\nBottone per Visualizzare il file inviato dal cliente\n\nButton clicked for row "+rowIndex);
+                        }
+                    });
+                    return visualizzaFileButton;
+                case 4: final JButton accettaFileButton = new JButton(COLUMN_NAMES[columnIndex]);
+                    accettaFileButton.addActionListener(new ActionListener(){
+                        public void actionPerformed(ActionEvent arg0){
+                            JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(accettaFileButton),
+                                    "Bottone per notificare l'accettazione del file al cliente");
+                        }
+                    });
+                    return accettaFileButton;
+                case 5: final JButton notificaRitiroButton = new JButton(COLUMN_NAMES[columnIndex]);
+                    notificaRitiroButton.addActionListener(new ActionListener(){
+                        public void actionPerformed(ActionEvent arg0){
+                            JOptionPane.showMessageDialog(JOptionPane.getDesktopPaneForComponent(notificaRitiroButton),
+                                    "Bottone per notificare il ritiro del materiale al cliente");
+                        }
+                    });
 		default: return "Error";
             }
 	}	
@@ -157,7 +156,7 @@ public class ProvaEsercente {
         
         public void mouseClicked(MouseEvent e) {
             int column = table.getColumnModel().getColumnIndexAtX(e.getX());
-            int row = e.getY()/table.getRowHeight(); 
+            int row    = e.getY()/table.getRowHeight(); 
             if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {
                 Object value = table.getValueAt(row, column);
                 if (value instanceof JButton) {
