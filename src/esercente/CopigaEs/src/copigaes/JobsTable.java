@@ -179,6 +179,8 @@ public class JobsTable {
         ActionListener alnotifica = new ActionListener(){
             public void actionPerformed(ActionEvent arg0) {
                 login.printed(job.get("id"));
+                JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(notificaRitiroButton), 
+                                    "Notifica ritiro stampa inviata a " + job.get("customer"));
             }
             
         };
