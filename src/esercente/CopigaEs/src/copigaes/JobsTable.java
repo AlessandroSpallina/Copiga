@@ -52,8 +52,8 @@ public class JobsTable {
     // per settare la visibilità a true
     private boolean visibilita = false;
     
-    public JobsTable(APIclient login, List<Map<String, String>> listaJobs){
-        this.apiclient = login;
+    public JobsTable(APIclient apiclient, List<Map<String, String>> listaJobs){
+        this.apiclient = apiclient;
         this.listaJobs = listaJobs;
         
         // console view - debug only
