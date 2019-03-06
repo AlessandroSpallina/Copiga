@@ -20,15 +20,15 @@ public class LoginGUI extends javax.swing.JFrame {
     /**
      * Creates new form LoginGUI
      */
-    Login login;
-    public LoginGUI(Login login) {
+    APIclient apiclient;
+    public LoginGUI(APIclient apiclient) {
         // setUndecorated(true); // questo comando toglie i bordi alla jframe;
                                  // da tenere in considerazione per eventuale
                                  // sviluppo di UX design flat/minimal.
                                  // RICORDA: deve essere il primo comando nel
                                  // costruttore della frame.
         initComponents();
-        this.login = login;
+        this.apiclient = apiclient;
     }
 
     /**
@@ -132,13 +132,13 @@ public class LoginGUI extends javax.swing.JFrame {
         String email = jTextField1.getText();
         String passw = jPasswordField1.getText();
         try{
-            login.connect(email, passw);
-            int code = login.getHttpStatus();
+            apiclient.connect(email, passw);
+            int code = apiclient.getHttpStatus();
             if(code == 401){
                 JOptionPane.showMessageDialog(null, "Email o password errate");
             }
             else{
-                new EsercenteGUI(login).setVisible(true);
+                new EsercenteGUI(apiclient).setVisible(true);
                 this.setVisible(false);
             }
             // TODO: aggiungere i vari codici HTTP STATUS

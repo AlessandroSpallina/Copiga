@@ -39,7 +39,7 @@ import javax.swing.table.TableCellRenderer;
 public class JobsTable {
     private List<Map<String, String>> listaJobs = new ArrayList<Map<String, String>>();
     private Map<String, String> job = new HashMap<String, String>();
-    private Login login;
+    private APIclient apiclient;
     private JFrame frame;
     
     // test per (actionlistener)alvisualizza
@@ -52,8 +52,8 @@ public class JobsTable {
     // per settare la visibilità a true
     private boolean visibilita = false;
     
-    public JobsTable(Login login, List<Map<String, String>> listaJobs){
-        this.login = login;
+    public JobsTable(APIclient login, List<Map<String, String>> listaJobs){
+        this.apiclient = login;
         this.listaJobs = listaJobs;
         
         // console view - debug only
@@ -62,7 +62,7 @@ public class JobsTable {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
-                //refresh = new RefreshTable(frame, login);
+                //refresh = new RefreshTable(frame, apiclient);
                 //refresh.start();
             }
         });
@@ -170,7 +170,7 @@ public class JobsTable {
                 JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(accettaFileButton), 
                                     "Task già accettato.");
                 } else {
-                    login.accettaTask(job.get("id"));
+                    apiclient.accettaTask(job.get("id"));
                     JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(accettaFileButton), 
                                     "Task accettato.");
                 }
@@ -178,7 +178,7 @@ public class JobsTable {
         };
         ActionListener alnotifica = new ActionListener(){
             public void actionPerformed(ActionEvent arg0) {
-                login.printed(job.get("id"));
+                apiclient.printed(job.get("id"));
                 JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(notificaRitiroButton), 
                                     "Notifica ritiro stampa inviata a " + job.get("customer"));
             }
@@ -218,7 +218,7 @@ public class JobsTable {
 	}
         
         public void addRow(){
-            listaJobs = login.diffJobs("00:00 1-1-2019");
+            listaJobs = apiclient.diffJobs("00:00 1-1-2019");
             this.fireTableDataChanged();
         }
     }

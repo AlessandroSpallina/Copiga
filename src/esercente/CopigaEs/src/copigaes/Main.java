@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class Main {
    // /*
-    static Login login = new Login();
+    static APIclient login = new APIclient();
     public static void main(String args[]) throws IOException {
         invokeLater(new Runnable() {
             public void run() {

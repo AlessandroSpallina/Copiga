@@ -26,7 +26,7 @@ import org.json.simple.parser.ParseException;
  * @author manlio
  */
 
-public class Login {
+public class APIclient {
     
     // lista dei jobs
     List<Map<String, String>> listaJobs; // il suo getter è diffJobs
@@ -85,7 +85,7 @@ public class Login {
             code = con.getResponseCode();
             return code;
         } catch (IOException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(APIclient.class.getName()).log(Level.SEVERE, null, ex);
         }
         return code;
     }
