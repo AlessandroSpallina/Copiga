@@ -111,23 +111,35 @@ public class APIclientTest {
                 case 0:
                     actual = instance.diffJobs(dates[i]);
                     expected = 0;
-                    assertEquals(expected, actual.size());
+                    if(expected!=actual.size()){
+                        fail("diffJobs con data errata: errore nel caso 0");
+                    }
+                    else assertEquals(expected, actual.size());
                     break;
                 case 1:
                     actual = instance.diffJobs(dates[i]);
                     expected = 2;
-                    assertEquals(expected, actual.size());
+                    if(expected!=actual.size()){
+                        fail("diffJobs con data errata: errore nel caso 1");
+                    }
+                    else assertEquals(expected, actual.size());
                     break;
                 case 2:
                     actual = instance.diffJobs(dates[i]);
                     expected = 2;
-                    assertEquals(expected, actual.size());
+                    if(expected!=actual.size()){
+                        fail("diffJobs con data errata: errore nel caso 2");
+                    }
+                    else assertEquals(expected, actual.size());
                     break;
                 case 3:
                     // è stato riscontrato un bug lato server!!!!
                     actual = instance.diffJobs(dates[i]);
                     expected = 0;
-                    assertEquals(expected, actual.size());
+                    if(expected!=actual.size()){
+                        fail("diffJobs con data errata: errore nel caso 3");
+                    }
+                    else assertEquals(expected, actual.size());
                     break;
             }
         }
