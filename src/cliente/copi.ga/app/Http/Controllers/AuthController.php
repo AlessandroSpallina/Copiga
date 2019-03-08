@@ -114,7 +114,7 @@ class AuthController extends Controller
 
         foreach ($orders_tmp as $order) {
           $i = array_search($order['credit_id'], $credits);
-          if(($i !== false) && ($requestime <= strtotime($order['created_at']))) {
+          if(($order['confirmed'] == true) && ($i !== false) && ($requestime <= strtotime($order['created_at']))) {
             array_push($orders, [
                                   'id' => (string) $order['id'],
                                   'time' => $order['created_at']->format('H:i d-m-Y'),

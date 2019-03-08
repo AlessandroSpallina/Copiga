@@ -46,9 +46,7 @@ class PrintspecsController extends Controller
 
     public function createPrintspecs(Request $request)
     {
-        $files = Auth::user()->files()->get();
-        $papers = Auth::user()->papers()->get();
-        $bookbindings = Auth::user()->bookbindings()->get();
+
         //dd(Auth::user()->files()->get()->find(1));
 
         $file_selezionati = $this->stringToArray($request->get('selezione_file'));
@@ -57,15 +55,15 @@ class PrintspecsController extends Controller
         $carta_bn = $this->stringToPrices($this->stringToArray($request->get('prezzoBN_carta')));
         $carta_c = $this->stringToPrices($this->stringToArray($request->get('prezzoC_carta')));
 
+
         $rilegatura_selezionati = $this->stringToArray($request->get('selezione_rilegatura'));
         $rilegatura_prezzo = $this->stringToPrices($this->stringToArray($request->get('prezzo_rilegatura')));
 
-        //dd($rilegatura_prezzo);
-
-
+        $files = Auth::user()->files()->get();
+        $papers = Auth::user()->papers()->get();
+        $bookbindings = Auth::user()->bookbindings()->get();
 
         // @findme : questi foeach possono essere ottimizzati, viene fatta una save() per ogni tupla anche se con un if ti eviti la save
-
         foreach($files as $file) {
           if(in_array($file->id, $file_selezionati)) {
             $file->selezionato = true;
