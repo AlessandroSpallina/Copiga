@@ -198,7 +198,7 @@ public class APIclient {
             
             listaJobs = new ArrayList<Map<String, String>>();
             
-            System.out.println("Manlio pelato: "+content);
+            System.out.println(content);
             Object obj = JSONValue.parse(content.toString());
             JSONArray array = (JSONArray)obj;
             System.out.println(array.toString());
@@ -283,7 +283,7 @@ public class APIclient {
                     content.append(System.lineSeparator());
                 }
             }
-            System.out.println(content);
+            System.out.println("questo è quello che riceve la accept: " + content);
         } catch(Exception e){
             System.out.println(e.getMessage());
         }
