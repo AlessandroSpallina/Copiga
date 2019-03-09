@@ -68,12 +68,25 @@ class OrderController extends Controller
 
     public function createOrder(Request $request)
     {
-        if ($request->fileUpload->isValid()) {
-            $file = request()->fileUpload;
+
+        request()->validate([
+          'fileUpload' => 'mimes:pdf'
+        ], [
+          'required' => 'Il file da inviare alla copisteria è obbligatorio!',
+          'fileUpload.mimes' => 'Al momento puoi inviare solo file pdf!'
+        ]);
+
+        $file = $request->get('fileUpload');
+
+
+        if (isset($request->fileUpload)) {
 
             $order = new Order();
+
             $order->filename = $file->hashName();
+
             $order->filehash = hash_file('md5', $file);
+
             $order->filesize = $file->getClientSize();
             $order->paper_id = $request->get('paper');
             $order->bookbinding_id = $request->get('bookbinding');
@@ -81,7 +94,9 @@ class OrderController extends Controller
             $order->color = ($request->get('color') == "yes") ? true : false;
             $order->pagesForSide = intval($request->get('pagesForSide'));
 
+
             $file->store('public');
+
 
             // --- calcolo del prezzo (PDF ONLY AL MOMENTO) ---
             $npag = $this->getPDFPages($order->filename);
@@ -99,6 +114,8 @@ class OrderController extends Controller
             return view('confirm_order', [
             'order' => $confirmData
           ]);
+        } else {
+          return redirect()->route('home'); // findme : refactoring with validator 'required'
         }
     }
 
@@ -122,16 +139,11 @@ class OrderController extends Controller
 
     public function showOrderHistory()
     {
-      /*$joined = Auth::user()->credits()
-                ->join('orders', 'orders.credit_id', '=', 'credits.id');
-
-                dd($joined);
-                ->select('credits.id', 'credits.disponibile', 'credits.printshop_id', 'printshops.name')
-                ->get();*/
 
       $joined = Auth::user()->credits()
                 ->join('orders', 'credits.id', '=', 'orders.credit_id')
                 ->select('orders.created_at', 'orders.filename', 'credits.printshop_id', 'orders.price', 'orders.accepted', 'orders.printed')
+                ->where('orders.confirmed', true)
                 ->get();
 
       foreach ($joined as $j) {

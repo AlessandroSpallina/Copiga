@@ -9,12 +9,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class OrderTest extends TestCase
 {
     /**
-     * A basic test example.
+     * A basic feature test example.
      *
      * @return void
      */
     public function testExample()
     {
-        $this->assertTrue(true);
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
     }
 }

@@ -11,11 +11,11 @@ class Order extends Model
       'filename',
       'filehash',
       'filesize',
+      'paper_id',
+      'bookbinding_id',
       'bothSides',
       'color',
       'pagesForSide',
-      'price',
-      'confirmed'
     ];
 
     public function credit()

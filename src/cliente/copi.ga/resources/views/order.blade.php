@@ -19,6 +19,13 @@
                                 {{ session()->get('success') }}
                               </div><br />
                             @endif
+                            @if ($errors->any())
+                              <div class="alert alert-danger">
+                                  @foreach ($errors->all() as $error)
+                                    {{ $error }} <br>
+                                  @endforeach
+                              </div>
+                            @endif
 
                             <table class="table table-bordered">
                               <thead>
@@ -57,7 +64,7 @@
                           <input type="text" id="selezione_copisteria" name="selezione_copisteria" hidden>
 
                           <div class="form-group">
-                            <input type="file" class="form-control-file" name="fileUpload" id="fileUpload">
+                            <input type="file" accept="application/pdf" class="form-control-file" name="fileUpload" id="fileUpload">
                           </div>
 
                           <div class="form-group">

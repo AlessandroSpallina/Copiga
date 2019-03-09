@@ -33,7 +33,7 @@ Route::post('/login/printshop', 'Auth\LoginController@printshopLogin');
 Route::post('/register/printshop', 'Auth\RegisterController@createPrintshop');
 
 // ROUTE CLIENTE @ findme eliminare 'home' e fare tutte le route cliente /pannello/opzione/qualcosa
-Route::view('/home', 'home')->middleware('auth', 'verified');
+Route::view('/home', 'home')->middleware('auth', 'verified')->name('home');
 Route::get('/order-history', 'OrderController@showOrderHistory')->middleware('auth', 'verified')->name('order_history');
 Route::get('/order', 'OrderController@showPrintshopsByCredits')->middleware('auth', 'verified');
 Route::post('/order', 'OrderController@createOrder')->middleware('auth', 'verified')->name('order');
